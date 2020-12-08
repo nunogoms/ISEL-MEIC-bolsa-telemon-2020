@@ -1,6 +1,6 @@
 # telemon_app
 
-IPL_ISEL an application that telemonitorizes the health signals of patients
+IPL_ISEL - App to telemonitorize the health data of patients
 
 ## Getting Started
 
