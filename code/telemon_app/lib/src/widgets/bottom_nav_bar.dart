@@ -19,7 +19,7 @@ class BottomNavBar extends StatelessWidget {
   void _onItemTapped(BuildContext context, int index) {
     if (this.selectedIndex != index) {
       Navigator.pushNamed(context, paths[index]);
-    }
+    }//TODO stop animation
   }
 
   @override

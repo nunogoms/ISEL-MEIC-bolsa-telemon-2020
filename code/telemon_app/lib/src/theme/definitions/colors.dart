@@ -23,6 +23,7 @@ class TextColors {
 class ThemeCols {
   final Color PRIMARY_WHITE = Color(0xffffffff);
   final Color SECONDARY_GREY = Color(0xffD0D3DA);
+  final Color BLACK = Color(0xff000000);
 
   final Color HEALTH_RED = Color(0xffF34D3E);
   final Color HEALTH_GREEN = Color(0xff4C9F38);
