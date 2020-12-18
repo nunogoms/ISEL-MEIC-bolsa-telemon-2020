@@ -24,6 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   bitalino: ^1.1.1
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.16.1
+  charts_flutter: ^0.9.0
+  provider: ^3.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

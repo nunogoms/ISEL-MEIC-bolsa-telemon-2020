@@ -2,6 +2,7 @@ import 'package:bitalino/bitalino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:telemon_app/src/model/device/device.dart';
 import 'package:telemon_app/src/services/bluetooth_service.dart';
 import 'package:telemon_app/src/theme/definitions/colors.dart';
 import 'package:telemon_app/src/theme/theme.dart';
@@ -11,6 +12,7 @@ const String infoDevice =
     "Esta aplicação utiliza um dispositivo fornecido pelo seu médico." +
         " Este dispositivo conecta-se através de bluetooth, pelo que são pedidas permissões. Por favor aceite para continuar";
 
+/*
 //TODO edit scaffold to be joined with another one
 class EcgView extends StatefulWidget {
   @override
@@ -19,9 +21,8 @@ class EcgView extends StatefulWidget {
 
 class _EcgViewState extends State<EcgView> {
   //TODO passar strings p outro lado
-  String currDevice = "";
-  BITalinoController bitalinoController;
-  bool measuring = false;
+  final bitalinoDevice = DeviceController();
+  var currDevice="";
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +60,9 @@ class _EcgViewState extends State<EcgView> {
                     visible: (currDevice.isEmpty) ? true : false,
                     child: FloatingActionButton(
                       onPressed: () async {
-                        bitalinoController =
-                            await BluetoothService.connectToDevice();
+                        bitalinoDevice.connect();
                         setState(() {
-                          currDevice = bitalinoController.address;
+                          currDevice = bitalinoDevice.getAddress();
                           //TODO add error handling, nomeadamente dizer ao user que houve um erro
                         });
                       },
@@ -89,20 +89,8 @@ class _EcgViewState extends State<EcgView> {
                     child: Icon(measuring ? Icons.stop : Icons.play_arrow),
                   ),
                 ),
-                Visibility(
-                  visible: (!measuring && !currDevice.isEmpty) ? true : false,
-                  child: RaisedButton(
-                    onPressed: () async {
-                      //TODO show this
-                      BITalinoState state = await bitalinoController.state();
-                      print("\n\n\n -------------------- DATA PRINT -------------------- \n\n\n");
-                      print(state.analog); // [List<int>]
-                      print(state.digital); // [List<int>]
-                    },
-                    child: Text("Print Stats"),
-                  ),
-                )
               ],
             )));
   }
 }
+*/

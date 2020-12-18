@@ -6,7 +6,7 @@ import 'package:telemon_app/src/widgets/appbars/back_title_appbar.dart';
 import 'package:telemon_app/src/widgets/bottom_nav_bar.dart';
 import 'package:telemon_app/src/widgets/buttons/measurements_button.dart';
 
-class MeasurementsView extends StatelessWidget {
+/*class MeasurementsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,4 +27,4 @@ class MeasurementsView extends StatelessWidget {
 
     );
   }
-}
+}*/

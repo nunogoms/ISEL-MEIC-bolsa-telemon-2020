@@ -4,23 +4,11 @@ import 'package:telemon_app/config/app_config.dart';
 import 'package:telemon_app/src/theme/definitions/colors.dart';
 import 'package:telemon_app/src/theme/theme.dart';
 
-const List<String> paths = [
-  Routes.HIGHLIGHTS,
-  Routes.MEASUREMENTS_PAGE,
-  Routes.DEVICE_PAGE,
-  Routes.SETTINGS,
-];
-
 class BottomNavBar extends StatelessWidget {
-  final int selectedIndex;
+  final int index;
+  final Function(int) handleIndex;
 
-  BottomNavBar(String path) : this.selectedIndex = paths.indexOf(path);
-
-  void _onItemTapped(BuildContext context, int index) {
-    if (this.selectedIndex != index) {
-      Navigator.pushNamed(context, paths[index]);
-    }//TODO stop animation
-  }
+  BottomNavBar({Key key, this.index, this.handleIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +25,7 @@ class BottomNavBar extends StatelessWidget {
           label: 'Medições',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.devices),
+          icon: Icon(Icons.devices_outlined),
           label: 'Dispositivo',
         ),
         BottomNavigationBarItem(
@@ -45,11 +33,9 @@ class BottomNavBar extends StatelessWidget {
           label: 'Definições',
         ),
       ],
-      currentIndex: selectedIndex,
+      currentIndex: this.index,
       selectedItemColor: ThemeColors.theme.PRIMARY_WHITE,
-      onTap: (index) {
-        _onItemTapped(context, index);
-      },
+      onTap: this.handleIndex,
     );
   }
 }

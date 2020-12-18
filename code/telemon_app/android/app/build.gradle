@@ -37,7 +37,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // TODO: Specify the id according to whatever comes out of talks.
         applicationId "com.ipl.isel.telemon_app"
         minSdkVersion 24
         targetSdkVersion 29

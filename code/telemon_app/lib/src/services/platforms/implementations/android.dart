@@ -4,9 +4,9 @@ import 'package:telemon_app/src/services/platforms/platform.dart';
 
 class AndroidOperations implements PlatformOperations {
   @override
-  static Future<BITalinoController> connectToBluetoothDevice() async {
+  static Future<BITalinoController> connectToBluetoothDevice(String macAddress) async {
     BITalinoController bitalinoController = BITalinoController(
-      "20:15:12:22:84:72",
+      macAddress,
       CommunicationType.BTH,
     );
 
