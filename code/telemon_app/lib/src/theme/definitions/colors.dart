@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 // ignore_for_file: non_constant_identifier_names
 
-
 class ThemeColors {
-
   static TextColors text = TextColors();
-  static ThemeCols theme= ThemeCols();
+  static ThemeCols theme = ThemeCols();
   static MiscColors misc = MiscColors();
 }
 
@@ -19,6 +17,7 @@ class TextColors {
   final Color LIGHT_GREY = Color(0xffE0E0E0);
   final Color WHITE = Color(0xffffffff);
 }
+
 @protected
 class ThemeCols {
   final Color PRIMARY_WHITE = Color(0xffffffff);
@@ -45,5 +44,6 @@ class MiscColors {
   final Color MEASUREMENTS_ECG = Color(0xffF34D3E);
   final Color MEASUREMENTS_EEC = Color(0xffFFB347);
   final Color MEASUREMENTS_EMG = Color(0xff77DD77);
+  final Color MEASUREMENTS_EDG = Color(0xff88AED0);
   final Color MEASUREMENTS_OTHER = Color(0xffFDFD66); //todo CHANGE THIS COLOR
 }

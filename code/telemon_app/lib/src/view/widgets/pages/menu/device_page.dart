@@ -1,10 +1,9 @@
-import 'package:bitalino/bitalino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:telemon_app/src/model/device/device.dart';
-import 'package:telemon_app/src/services/bluetooth_service.dart';
+import 'package:provider/provider.dart';
 import 'package:telemon_app/src/theme/definitions/colors.dart';
 import 'package:telemon_app/src/theme/theme.dart';
+import 'package:telemon_app/src/viewmodels/device_viewmodel.dart';
 
 const String infoDevice =
     "Esta aplicação utiliza um dispositivo fornecido pelo seu médico." +
@@ -16,11 +15,12 @@ class DevicePage extends StatefulWidget {
 }
 
 class _DevicePageState extends State<DevicePage> {
-  final bitalinoDevice = DeviceController();
-  String currDevice =  "";
+  _DevicePageState();
 
   @override
   Widget build(BuildContext context) {
+    final deviceViewModel = Provider.of<DeviceViewModel>(context);
+
     return Column(
       children: <Widget>[
         Text(infoDevice),
@@ -37,7 +37,7 @@ class _DevicePageState extends State<DevicePage> {
                           .headline4
                           .copyWith(color: Colors.white)),
                 ),
-                Text("$currDevice",
+                Text("${deviceViewModel.currDeviceMac}",
                     style: mainTheme()
                         .textTheme
                         .headline2
@@ -45,15 +45,9 @@ class _DevicePageState extends State<DevicePage> {
               ],
             )),
         Visibility(
-            visible: (currDevice.isEmpty) ? true : false,
+            visible: deviceViewModel.currDeviceMac.isEmpty,
             child: FloatingActionButton(
-              onPressed: () async {
-                await bitalinoDevice.connect();
-                setState(() {
-                  currDevice = bitalinoDevice.getAddress();
-                  //TODO add error handling, nomeadamente dizer ao user que houve um erro
-                });
-              },
+              onPressed: () => {deviceViewModel.connectDevice()},
               child: Icon(Icons.add),
             )),
       ],

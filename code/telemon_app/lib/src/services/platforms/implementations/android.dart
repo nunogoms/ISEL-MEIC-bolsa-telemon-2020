@@ -1,10 +1,14 @@
+import 'dart:core';
+
 import 'package:bitalino/bitalino.dart';
 import 'package:flutter/services.dart';
 import 'package:telemon_app/src/services/platforms/platform.dart';
 
+import '../../device_exceptions.dart';
+
 class AndroidOperations implements PlatformOperations {
   @override
-  static Future<BITalinoController> connectToBluetoothDevice(String macAddress) async {
+  Future<BITalinoController> connectToBluetoothDevice( String macAddress) async {
     BITalinoController bitalinoController = BITalinoController(
       macAddress,
       CommunicationType.BTH,
@@ -14,7 +18,7 @@ class AndroidOperations implements PlatformOperations {
       await bitalinoController.initialize();
       return bitalinoController;
     } on PlatformException catch (Exception) {
-      print("Initialization failed: ${Exception.message}");
+      throw new BluetoothConnectionException(Exception.message);
     }
   }
 
