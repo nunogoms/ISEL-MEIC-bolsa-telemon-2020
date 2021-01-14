@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:telemon_app/config/app_config.dart';
 import 'package:telemon_app/src/theme/theme.dart';
-import 'package:telemon_app/src/view/pages/measurements/ecg_view.dart';
-import 'package:telemon_app/src/view/pages/measurements/eda_view.dart';
-import 'package:telemon_app/src/view/pages/measurements/eeg_view.dart';
-import 'package:telemon_app/src/view/pages/measurements/emg_view.dart';
-import 'package:telemon_app/src/view/pages/menu_view.dart';
+import 'package:telemon_app/src/ui/view/pages/measurements/ecg_view.dart';
+import 'package:telemon_app/src/ui/view/pages/measurements/eda_view.dart';
+import 'package:telemon_app/src/ui/view/pages/measurements/eeg_view.dart';
+import 'package:telemon_app/src/ui/view/pages/measurements/emg_view.dart';
+import 'package:telemon_app/src/ui/view/pages/menu_view.dart';
 
 void main() {
   runApp(MaterialApp(
