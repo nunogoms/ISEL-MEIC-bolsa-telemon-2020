@@ -1,4 +1,4 @@
-enum SensorsCodes { EMG, ECG, EDA, EEG }
+enum SensorsCodes { EMG, ECG, EDA, EEG, ACC }
 
 extension SensorNumber on SensorsCodes {
   int get value {
@@ -11,6 +11,8 @@ extension SensorNumber on SensorsCodes {
         return 2;
       case SensorsCodes.EEG:
         return 3;
+      case SensorsCodes.ACC:
+        return 4;
     }
     throw new Exception(
         "The value $this is not a valid sensor"); //TODO exception management and string

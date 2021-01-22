@@ -6,6 +6,7 @@ import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
 import 'package:telemon_app/src/ui/view/widgets/bottom_nav_bar.dart';
 import 'package:telemon_app/src/ui/view/widgets/pages/menu/device_page.dart';
 import 'package:telemon_app/src/ui/view/widgets/pages/menu/measurements_page.dart';
+import 'package:telemon_app/src/ui/view/widgets/pages/menu/settings_page.dart';
 import 'package:telemon_app/src/ui/view/widgets/pages/menu/wip_page.dart';
 import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
 
@@ -22,7 +23,7 @@ class _MenuViewState extends State<MenuView> {
     WipPage(),
     MeasurementsPage(),
     DevicePage(),
-    WipPage(),
+    SettingsPage(),
   ]; //TODO alterar esta lista para ter titulos, e icons num objecto
 
   void _handleTap(int newIndex) {
@@ -35,7 +36,7 @@ class _MenuViewState extends State<MenuView> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-        appBar: BackTitleAppbar("Dispositivo").build(context),
+        appBar: BackTitleAppbar("Dispositivo").build(context),//TODO change this title
         bottomNavigationBar:
             BottomNavBar(index: currentMenuIndex, handleIndex: _handleTap),
         body: ChangeNotifierProvider(

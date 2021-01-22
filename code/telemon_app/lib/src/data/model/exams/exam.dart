@@ -11,12 +11,12 @@ class Exam {
   int startingDatetime;
   int currentTime = 0;
 
-  double secondsToShow = 2;//TODO move this
+  int secondsToShow;
 
   final List<SensorValue> _fullExamValues = List<SensorValue>();
 
   Exam(
-      {this.duration, this.sensor, this.frequency, this.independentUnit = "ms"})
+      {this.duration, this.sensor, this.frequency,this.secondsToShow, this.independentUnit = "ms"})
       : maxSamples = serializeFrequency(frequency) * duration;
 
   bool addValue(double sampledValue) {

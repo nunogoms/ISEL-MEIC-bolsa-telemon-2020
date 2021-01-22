@@ -24,6 +24,9 @@ class MeasurementsPage extends StatelessWidget {
         MeasurementsButton(
             "Análise Electrodérmica", ThemeColors.misc.MEASUREMENTS_EDG,
                 () {Navigator.pushNamed(context, Routes.EDA_PAGE);}),
+        MeasurementsButton(
+            "Análise de Aceleração", ThemeColors.misc.MEASUREMENTS_EEC,
+                () {Navigator.pushNamed(context, Routes.ACC_PAGE);}),
       ]),
     );
   }

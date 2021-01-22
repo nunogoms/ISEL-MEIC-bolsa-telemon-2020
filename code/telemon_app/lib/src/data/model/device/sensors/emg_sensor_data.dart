@@ -5,7 +5,7 @@ import '../sensors_codes.dart';
 
 class EmgSensorData extends ISensor {
   EmgSensorData() : super(TechnicalInfo(vcc: 3.3, measurementUnit: "mV"),
-      SensorDataInfo(maxValue: 1.64, minValue: -1.64, sensorGain: 1009));
+      SensorDataInfo(maxValue: 1.7, minValue: -1.7, sensorGain: 1009));
 
   int differenceToUnit = 1000;
 

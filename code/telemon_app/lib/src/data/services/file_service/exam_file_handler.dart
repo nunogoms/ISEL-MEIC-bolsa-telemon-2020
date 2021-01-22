@@ -8,7 +8,7 @@ class ExamFileHandler extends FileHandler<Exam> {
   @override
   void writeFile(Exam exam) async {
     final file = await localFile;
-    await file
+    return await file
         .writeAsString("Exam Type : ${exam.sensor.getSensorCode()}\n",
             mode: FileMode.append)
         .then((_) => file.writeAsString(

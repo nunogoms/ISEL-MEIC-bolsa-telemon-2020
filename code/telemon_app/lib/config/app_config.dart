@@ -8,4 +8,5 @@ class Routes {
   static const ECG_PAGE = "/measurements/ecg";
   static const EEG_PAGE = "/measurements/eec";
   static const EDA_PAGE = "/measurements/eda";
+  static const ACC_PAGE = "/measurements/acc";
 }

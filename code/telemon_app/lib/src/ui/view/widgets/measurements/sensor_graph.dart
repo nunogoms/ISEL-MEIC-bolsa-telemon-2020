@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
 import 'package:telemon_app/src/ui/view/widgets/measurements/utils/chart.dart';
 import 'package:telemon_app/src/ui/view/widgets/measurements/utils/new_chart.dart';
-import 'package:telemon_app/src/ui/viewmodels/sensor_viewmodel.dart';
+import 'package:telemon_app/src/ui/viewmodels/exam_viewmodel.dart';
 
 class SensorGraph extends StatefulWidget {
   final ISensor sensorDevice;
@@ -17,22 +17,24 @@ class SensorGraph extends StatefulWidget {
 class _SensorGraph extends State<SensorGraph> {
   GlobalKey<ScaffoldState> _sensorKey = GlobalKey<ScaffoldState>();
 
-  _notify(dynamic text) {
-    _sensorKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(
-          text.toString(),
-        ),
-        duration: Duration(
-          seconds: 5,
-        ),
-      ),
-    );
+  Widget _getIconText(ExamViewModel sensorVM) {
+    Widget toRet = null;
+    switch (sensorVM.examState) {
+      case ExamState.INIT:
+        toRet= Text("Start");
+        break;
+      case ExamState.MEASURING:
+        toRet= Text("Stop");
+        break;
+      case ExamState.FINISHED:
+        toRet= Text("Reset");
+    }
+    return toRet;
   }
 
   @override
   Widget build(BuildContext context) {
-    SensorViewModel sensorVM = Provider.of<SensorViewModel>(context);
+    ExamViewModel examVM = Provider.of<ExamViewModel>(context);
 
     return Column(
       key: _sensorKey,
@@ -41,46 +43,45 @@ class _SensorGraph extends State<SensorGraph> {
       children: <Widget>[
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(16),
-            child: NewChart(sensorVM.exams.last),
+            padding: EdgeInsets.only(left: 5,top: 20, right: 10, bottom: 10),
+            child: NewChart(examVM.exams.last),
           ),
         ),
         Expanded(
           child: ListView(
+            padding: EdgeInsets.all(16),
             children: <Widget>[
               Row(children: [
                 Expanded(
                   child: RaisedButton(
-                    onPressed: () async {
-                      sensorVM.measuring ? await sensorVM.stopMeasuring() : await sensorVM.startMeasuring();
-                    },
-                    child: sensorVM.measuring ? Text("Stop") : Text("Start"),
-                  ),
+                      onPressed: () async {
+                        switch (examVM.examState) {
+                          case ExamState.INIT:
+                            await examVM.startMeasuring();
+                            break;
+                          case ExamState.MEASURING:
+                            await examVM.stopMeasuring();
+                            break;
+                          case ExamState.FINISHED:
+                            await examVM.resetMeasuring();
+                        }
+                      },
+                      child: _getIconText(examVM)),
                 ),
                 SizedBox(
                   width: 16,
                 ),
                 Expanded(
-                  child: RaisedButton(
+                  child: examVM.examState == ExamState.FINISHED ? RaisedButton(
                     onPressed: () async {
-                      bool stopped = await sensorVM.resetMeasuring();
+                      if (examVM.examState == ExamState.FINISHED)
+                        return await examVM.saveExam();
                       // _notify("Stopped: $stopped");
                     },
-                    child: Text("Reset"),
-                  ),
+                    child: Text("Save"),
+                  ) : Text(""),
                 ),
               ]),
-              Row(children: [
-                Expanded(
-                  child: RaisedButton(
-                    onPressed:() {
-                      sensorVM.saveExam();
-                    },
-                    child: Text("Save"),
-                  ),
-                ),
-              ]
-                  ),
             ],
           ),
         ),
