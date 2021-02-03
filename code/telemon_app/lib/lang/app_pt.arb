@@ -1,0 +1,62 @@
+{
+  "weightMeasurement": "Peso",
+  "ecgMeasurement": "Electrocardiograma",
+  "emgMeasurement": "Electromiograma",
+  "edaMeasurement": "Actividade Electrodérmica",
+  "accMeasurement": "Aceleração",
+  "connectedDevice": "Dispositivo conectado",
+  "summary": "Resumo",
+  "measurements": "Medições",
+  "device": "Dispositivo",
+  "settings": "Definições",
+  "wip": "Em desenvolvimento",
+  "frequency": "Frequência",
+  "measurementDuration": "Duração da Medição",
+  "graphDuration": "Tempo apresentado no Gráfico",
+  "devicePermissions": "Esta aplicação utiliza um dispositivo médico para retirar dados clinícos em tempo real. Este dispositivo conecta-se através de bluetooth, e são necessárias permissões para tal.\nPor favor aceite para continuar.",
+  "@weightMeasurement": {
+    "description": "The title that appears in measurements referring to inserting a weight"
+  },
+  "@ecgMeasurement": {
+    "description": "The title that appears in measurements referring to starting an electrocardiogram"
+  },
+  "@emgMeasurement": {
+    "description": "The title that appears in measurements referring to starting an electromyogram"
+  },
+  "@edaMeasurement": {
+    "description": "The title that appears in measurements referring to starting an electrodermal activity analysis"
+  },
+  "@accMeasurement": {
+    "description": "The title that appears in measurements referring to starting a acceleration analysis"
+  },
+  "@connectedDevice": {
+    "description": "Device connected to the phone"
+  },
+  "@summary": {
+    "description": "Brief information about a topic"
+  },
+  "@measurements": {
+    "description": "The measures made on the patients"
+  },
+  "@device": {
+    "description": "Device used to provide the sensors"
+  },
+  "@settings": {
+    "description": "Page of setings"
+  },
+  "@wip": {
+    "description": "Work in progress, related to a screen"
+  },
+  "@frequency": {
+    "description": "The frequency used to do a measurement"
+  },
+  "@measurementDuration": {
+    "description": "The duration by default of a measurement"
+  },
+  "@graphDuration": {
+    "description": "Time presented on the graph"
+  },
+  "@devicePermissions": {
+    "description": "Informing the user of the permissions needed to use the device"
+  }
+}

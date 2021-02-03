@@ -2,6 +2,7 @@ import 'package:bitalino/bitalino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telemon_app/src/consts/globals.dart';
 import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
@@ -20,7 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Container(
         child: Column(children: <Widget>[
           Row(children: [
-            Text("Frequency : "),
+            Text(l10n(context).frequency+" : "),
             DropdownButton<String>(
               value: settingsViewModel.sampleFrequency.toString(),
               icon: Icon(Icons.arrow_drop_down_circle_outlined),
@@ -44,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
             )
           ],),
           Row(children: [
-            Text("Duração dos Exames (s) : "),
+            Text(l10n(context).measurementDuration+"(s) : "),
             DropdownButton<String>(
               value: settingsViewModel.duration.toString(),
               icon: Icon(Icons.arrow_drop_down_circle_outlined),
@@ -68,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
             )
           ],),
           Row(children: [
-            Text("Tempo no gráfico (s) : "),
+            Text(l10n(context).graphDuration+" : "),
             DropdownButton<String>(
               value: settingsViewModel.secondsToShow.toString(),
               icon: Icon(Icons.arrow_drop_down_circle_outlined),

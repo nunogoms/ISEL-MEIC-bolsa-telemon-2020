@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:telemon_app/src/consts/globals.dart';
 
 class WipPage extends StatelessWidget {
 
@@ -9,7 +10,7 @@ class WipPage extends StatelessWidget {
         backgroundColor: Colors.amberAccent,
         body: Center(
           child: Text(
-            "WORK IN PROGRESS",
+            l10n(context).wip,
             style: new TextStyle(
               fontSize: 30.0,
             ),

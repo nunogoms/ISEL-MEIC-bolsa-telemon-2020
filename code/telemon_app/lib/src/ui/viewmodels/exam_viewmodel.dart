@@ -1,10 +1,8 @@
-import 'package:bitalino/bitalino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
 import 'package:telemon_app/src/data/model/exams/exam.dart';
 import 'package:telemon_app/src/data/services/device_service/bitalino_controller.dart';
 import 'package:telemon_app/src/data/services/file_service/exam_file_handler.dart';
-import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 enum ExamState { INIT, MEASURING, FINISHED }
 
@@ -15,16 +13,15 @@ class ExamViewModel extends ChangeNotifier {
   ExamState examState = ExamState.INIT;
   final settingsViewModel;
 
-
   static BitalinoController _deviceController = BitalinoController();
 
   ExamViewModel(this.sensor, this.settingsViewModel)
       : exams = [
           Exam(
-            duration: settingsViewModel.duration,
-            sensor: sensor,
-            frequency:settingsViewModel.sampleFrequency,
-            secondsToShow: settingsViewModel.secondsToShow)
+              duration: settingsViewModel.duration,
+              sensor: sensor,
+              frequency: settingsViewModel.sampleFrequency,
+              secondsToShow: settingsViewModel.secondsToShow)
         ];
 
   Future<void> startMeasuring() async {
@@ -79,12 +76,13 @@ class ExamViewModel extends ChangeNotifier {
               exams.add(Exam(
                   duration: settingsViewModel.duration,
                   sensor: sensor,
-                  frequency:settingsViewModel.sampleFrequency,
+                  frequency: settingsViewModel.sampleFrequency,
                   secondsToShow: settingsViewModel.secondsToShow)),
               notifyListeners()
             })
         .whenComplete(() => examState = ExamState.INIT);
 
     //TODO deal wit exceptions
+    //TODO alterar palavras p portugues tudo
   }
 }

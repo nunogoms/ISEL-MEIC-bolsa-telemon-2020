@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telemon_app/src/theme/definitions/colors.dart';
+import 'package:telemon_app/src/consts/theme/colors.dart';
 import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
 import 'package:telemon_app/src/ui/view/widgets/bottom_nav_bar.dart';
 import 'package:telemon_app/src/ui/view/widgets/pages/menu/device_page.dart';
@@ -34,9 +34,9 @@ class _MenuViewState extends State<MenuView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-        appBar: BackTitleAppbar("Dispositivo").build(context),//TODO change this title
+        appBar: BackTitleAppbar("Dispositivo").build(context),
+        //TODO change this title
         bottomNavigationBar:
             BottomNavBar(index: currentMenuIndex, handleIndex: _handleTap),
         body: ChangeNotifierProvider(

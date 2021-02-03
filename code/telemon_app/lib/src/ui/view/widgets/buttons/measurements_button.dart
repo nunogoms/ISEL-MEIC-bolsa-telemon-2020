@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:telemon_app/src/theme/definitions/colors.dart';
-import 'package:telemon_app/src/theme/theme.dart';
+import 'package:telemon_app/src/consts/theme/colors.dart';
+import 'package:telemon_app/src/consts/theme/theme.dart';
+
 
 class MeasurementsButton extends StatelessWidget {
   final String title;
@@ -20,7 +21,7 @@ class MeasurementsButton extends StatelessWidget {
                 color: ThemeColors.theme.PRIMARY_WHITE,
                 padding: EdgeInsets.symmetric(vertical: 5),
                 elevation: 10,
-                onPressed: this.onPressed,
+                onPressed: () => this.onPressed(this.title),
                 child: Text(this.title,
                     textAlign: TextAlign.center,
                     style: mainTheme().textTheme.headline2.copyWith(

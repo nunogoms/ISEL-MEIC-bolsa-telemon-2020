@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'definitions/colors.dart';
-import 'definitions/fonts.dart';
+import 'colors.dart';
+import 'fonts.dart';
 
 ThemeData mainTheme(){
   final ThemeData base = ThemeData.light();

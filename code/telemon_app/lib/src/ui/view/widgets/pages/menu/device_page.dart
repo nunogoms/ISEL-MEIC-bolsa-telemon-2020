@@ -1,13 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telemon_app/src/theme/definitions/colors.dart';
-import 'package:telemon_app/src/theme/theme.dart';
+import 'package:telemon_app/src/consts/globals.dart';
+import 'package:telemon_app/src/consts/theme/colors.dart';
+import 'package:telemon_app/src/consts/theme/theme.dart';
 import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
-
-const String infoDevice =
-    "Esta aplicação utiliza um dispositivo fornecido pelo seu médico." +
-        " Este dispositivo conecta-se através de bluetooth, pelo que são pedidas permissões. Por favor aceite para continuar";
 
 class DevicePage extends StatefulWidget {
   @override
@@ -23,7 +20,7 @@ class _DevicePageState extends State<DevicePage> {
 
     return Column(
       children: <Widget>[
-        Text(infoDevice),
+        Text(l10n(context).devicePermissions),
         Container(
             margin: EdgeInsets.symmetric(horizontal: 5, vertical: 100),
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -31,7 +28,7 @@ class _DevicePageState extends State<DevicePage> {
             child: Column(
               children: <Widget>[
                 Center(
-                  child: Text("Dispositivo conectado :",
+                  child: Text(l10n(context).connectedDevice,
                       style: mainTheme()
                           .textTheme
                           .headline4

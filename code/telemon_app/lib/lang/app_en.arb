@@ -1,0 +1,7 @@
+{
+  "weightMeasurement": "Weight",
+  "ecgMeasurement":"Electrocardiogram",
+  "emgMeasurement": "Electromyogram",
+  "edaMeasurement": "Electrodermal Activity",
+  "accMeasurement": "Acceleration"
+}

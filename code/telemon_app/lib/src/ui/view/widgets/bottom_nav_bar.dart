@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:telemon_app/config/app_config.dart';
-import 'package:telemon_app/src/theme/definitions/colors.dart';
-import 'package:telemon_app/src/theme/theme.dart';
+import 'package:telemon_app/src/consts/globals.dart';
+import 'package:telemon_app/src/consts/theme/colors.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int index;
@@ -15,22 +14,22 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: ThemeColors.theme.NAVBAR_BLUE,
-      items: const <BottomNavigationBarItem>[
+      items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.assignment_outlined),
-          label: 'Resumo',
+          label:  l10n(context).summary,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.attribution_outlined),
-          label: 'Medições',
+          label: l10n(context).measurements,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.devices_outlined),
-          label: 'Dispositivo',
+          label: l10n(context).device,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings_outlined),
-          label: 'Definições',
+          label: l10n(context).settings,
         ),
       ],
       currentIndex: this.index,
@@ -39,3 +38,4 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 }
+
