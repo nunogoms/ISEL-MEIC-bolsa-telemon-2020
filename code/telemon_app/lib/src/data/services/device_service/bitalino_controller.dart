@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bitalino/bitalino.dart';
 import 'package:telemon_app/src/data/services/platforms/implementations/android.dart';
+import 'package:telemon_app/src/data/services/platforms/implementations/ios.dart';
 import 'package:telemon_app/src/data/services/platforms/platform.dart';
 import 'device_exceptions.dart';
 
@@ -21,12 +22,12 @@ class BitalinoController {
 
   static PlatformOperations _getOperationAccordingToPlatform() {
     if(Platform.isAndroid) return AndroidOperations();
-    else if (Platform.isIOS) throw OperatingSystemUnsupportedException(Platform.operatingSystem); //TODO add ios support
+    else if (Platform.isIOS) throw IosOperations(); //TODO add ios support
     else throw OperatingSystemUnsupportedException(Platform.operatingSystem);
   }
 
-  Future<bool> connectToDevice(String macAdress) async {
-    _bitalinoController = await _operations.connectToBluetoothDevice(macAdress);
+  Future<bool> connectToDevice(String uuid) async {
+    _bitalinoController = await _operations.connectToBluetoothDevice(uuid);
     return await _bitalinoController.connect(
       onConnectionLost: () {
         throw ConnectionDroppedException();
@@ -45,6 +46,7 @@ class BitalinoController {
 
   String getDeviceAddress() => _bitalinoController!=null ? _bitalinoController.address : null ;
 
-//TODO ask se se faz disconnect tendo em conta que ñ etá disponivel em iOS
-// 
+  Future<bool> disconnectDevice() async {
+    return await _bitalinoController.dispose().then((value) => _bitalinoController.disconnect());
+  }
 }

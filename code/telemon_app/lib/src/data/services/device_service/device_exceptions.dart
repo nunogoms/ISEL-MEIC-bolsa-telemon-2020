@@ -1,4 +1,3 @@
-//TODO verificar abstracao de excepcoes
 class BluetoothConnectionException implements Exception{
   final String msg;
 

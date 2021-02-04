@@ -6,7 +6,7 @@ import '../sensors_codes.dart';
 class EdaSensorData extends ISensor {
   EdaSensorData()
       : super(TechnicalInfo(vcc: 3.3, measurementUnit: "𝜇S"),
-            SensorDataInfo(maxValue: 25.0, minValue: 0.0, sensorGain: 0.132));
+            SensorDataInfo(maxValue: 12.0, minValue: 0.0, sensorGain: 0.132));
 
   //Comes in millivolts
   @override

@@ -3,6 +3,7 @@ import 'package:telemon_app/src/data/model/device/isensor.dart';
 import 'package:telemon_app/src/data/model/exams/exam.dart';
 import 'package:telemon_app/src/data/services/device_service/bitalino_controller.dart';
 import 'package:telemon_app/src/data/services/file_service/exam_file_handler.dart';
+import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 enum ExamState { INIT, MEASURING, FINISHED }
 
@@ -11,30 +12,30 @@ class ExamViewModel extends ChangeNotifier {
   final List<Exam> exams;
   final ExamFileHandler fileHandler = new ExamFileHandler();
   ExamState examState = ExamState.INIT;
-  final settingsViewModel;
+  final ExamSettings examSettings;
 
   static BitalinoController _deviceController = BitalinoController();
 
-  ExamViewModel(this.sensor, this.settingsViewModel)
+  ExamViewModel(this.sensor, this.examSettings)
       : exams = [
           Exam(
-              duration: settingsViewModel.duration,
+              duration: examSettings.duration,
               sensor: sensor,
-              frequency: settingsViewModel.sampleFrequency,
-              secondsToShow: settingsViewModel.secondsToShow)
+              frequency: examSettings.sampleFrequency,
+              secondsToShow: examSettings.secondsToShow)
         ];
 
   Future<void> startMeasuring() async {
     examState = ExamState.MEASURING;
     exams.add(Exam(
-        duration: settingsViewModel.duration,
+        duration: examSettings.duration,
         sensor: sensor,
-        frequency: settingsViewModel.sampleFrequency,
-        secondsToShow: settingsViewModel.secondsToShow));
+        frequency: examSettings.sampleFrequency,
+        secondsToShow: examSettings.secondsToShow));
 
     try {
       await _deviceController.startAcquisition(
-          sensor.getSensorCode(), settingsViewModel.sampleFrequency, (frame) {
+          sensor.getSensorCode(), examSettings.sampleFrequency, (frame) {
         if (examState != ExamState.MEASURING) return;
         bool addedSuccessfully = exams.last
             .addValue(frame.analog[sensor.getSensorCode().index].toDouble());
@@ -74,10 +75,10 @@ class ExamViewModel extends ChangeNotifier {
     await stopMeasuring()
         .whenComplete(() => {
               exams.add(Exam(
-                  duration: settingsViewModel.duration,
+                  duration: examSettings.duration,
                   sensor: sensor,
-                  frequency: settingsViewModel.sampleFrequency,
-                  secondsToShow: settingsViewModel.secondsToShow)),
+                  frequency: examSettings.sampleFrequency,
+                  secondsToShow: examSettings.secondsToShow)),
               notifyListeners()
             })
         .whenComplete(() => examState = ExamState.INIT);

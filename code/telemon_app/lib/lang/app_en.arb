@@ -3,5 +3,19 @@
   "ecgMeasurement":"Electrocardiogram",
   "emgMeasurement": "Electromyogram",
   "edaMeasurement": "Electrodermal Activity",
-  "accMeasurement": "Acceleration"
+  "accMeasurement": "Acceleration",
+  "connectedDevice": "Connected Device",
+  "summary": "Summary",
+  "measurements": "Measurements",
+  "device": "Device",
+  "settings": "Settings",
+  "wip": "Work in Progress",
+  "frequency": "Frequency",
+  "measurementDuration": "Measurement duration",
+  "graphDuration": "Presented Graph duration",
+  "devicePermissions": "This app needs permission to retrieve medical data in real time. This data is fetched via Bluetooth.\nPlease accept to continue.",
+  "start": "Start",
+  "stop": "Stop",
+  "reset": "Reset",
+  "save":"Save"
 }

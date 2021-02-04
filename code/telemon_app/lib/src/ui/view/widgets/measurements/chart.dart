@@ -2,12 +2,14 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
 import 'package:telemon_app/src/data/model/exams/exam.dart';
+import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
-class NewChart extends StatelessWidget {
+class Chart extends StatelessWidget {
   final Exam exam;
+  final ExamSettings examSettings;
   final List<SensorValue> _data = List<SensorValue>();
 
-  NewChart(this.exam) {
+  Chart(this.exam, this.examSettings) {
     exam.getVisualValues().forEach((element) => _data.add(element));
   }
 
@@ -18,6 +20,8 @@ class NewChart extends StatelessWidget {
       lineBarsData: [getDataGraph()],
       maxY: exam.sensor.sensorDataInfo.maxValue,
       minY: exam.sensor.sensorDataInfo.minValue,
+      minX: 0,//Minimum time
+      maxX: examSettings.secondsToShow.toDouble(),
       clipData: FlClipData.horizontal(),
       titlesData: FlTitlesData(bottomTitles: SideTitles(showTitles: false)),
       //TODO adicionar tempos
@@ -38,7 +42,7 @@ class NewChart extends StatelessWidget {
       spots:
           _data.map((e) => FlSpot(e.timeInMillis.toDouble(), e.value)).toList(),
       dotData: FlDotData(
-        show: false,
+        show: true,
       ),
       barWidth: 0.5,
     );

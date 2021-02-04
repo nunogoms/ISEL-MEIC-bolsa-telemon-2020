@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:telemon_app/src/consts/globals.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
-import 'package:telemon_app/src/ui/view/widgets/measurements/utils/chart.dart';
-import 'package:telemon_app/src/ui/view/widgets/measurements/utils/new_chart.dart';
+import 'package:telemon_app/src/ui/view/widgets/measurements/chart.dart';
+import 'package:telemon_app/src/ui/view/widgets/measurements/utils/OldChart.dart';
 import 'package:telemon_app/src/ui/viewmodels/exam_viewmodel.dart';
+import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
+
 
 class SensorGraph extends StatefulWidget {
   final ISensor sensorDevice;
@@ -21,13 +24,13 @@ class _SensorGraph extends State<SensorGraph> {
     Widget toRet = null;
     switch (sensorVM.examState) {
       case ExamState.INIT:
-        toRet= Text("Start");
+        toRet = Text(l10n(context).start);
         break;
       case ExamState.MEASURING:
-        toRet= Text("Stop");
+        toRet = Text(l10n(context).stop);
         break;
       case ExamState.FINISHED:
-        toRet= Text("Reset");
+        toRet = Text(l10n(context).reset);
     }
     return toRet;
   }
@@ -43,8 +46,8 @@ class _SensorGraph extends State<SensorGraph> {
       children: <Widget>[
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: 5,top: 20, right: 10, bottom: 10),
-            child: NewChart(examVM.exams.last),
+            padding: EdgeInsets.only(left: 5, top: 20, right: 10, bottom: 10),
+            child: OldChart(examVM.exams.last, examVM.examSettings),
           ),
         ),
         Expanded(
@@ -72,14 +75,15 @@ class _SensorGraph extends State<SensorGraph> {
                   width: 16,
                 ),
                 Expanded(
-                  child: examVM.examState == ExamState.FINISHED ? RaisedButton(
-                    onPressed: () async {
-                      if (examVM.examState == ExamState.FINISHED)
-                        return await examVM.saveExam();
-                      // _notify("Stopped: $stopped");
-                    },
-                    child: Text("Save"),
-                  ) : Text(""),
+                  child: examVM.examState == ExamState.FINISHED
+                      ? RaisedButton(
+                          onPressed: () async {
+                            if (examVM.examState == ExamState.FINISHED)
+                              return await examVM.saveExam();
+                          },
+                          child: Text(l10n(context).save),
+                        )
+                      : Text(""),
                 ),
               ]),
             ],

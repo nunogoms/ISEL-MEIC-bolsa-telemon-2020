@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:telemon_app/src/consts/globals.dart';
 
 class WipPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +14,6 @@ class WipPage extends StatelessWidget {
               fontSize: 30.0,
             ),
           ),
-        )
-    );
+        ));
   }
 }

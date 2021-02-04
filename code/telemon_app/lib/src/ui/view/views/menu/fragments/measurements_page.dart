@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:telemon_app/config/app_config.dart';
 import 'package:telemon_app/src/consts/globals.dart';
 import 'package:telemon_app/src/consts/theme/colors.dart';
-import 'package:telemon_app/src/ui/view/pages/measurements/generic_view.dart';
+import 'package:telemon_app/src/ui/view/views/measurements/generic_view.dart';
 import 'package:telemon_app/src/ui/view/widgets/buttons/measurements_button.dart';
-import 'package:telemon_app/src/ui/view/widgets/pages/menu/wip_page.dart';
 
 class MeasurementsPage extends StatelessWidget {
   @override

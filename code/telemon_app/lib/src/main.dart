@@ -9,9 +9,9 @@ import 'package:telemon_app/src/data/model/device/sensors/ecg_sensor_data.dart';
 import 'package:telemon_app/src/data/model/device/sensors/eda_sensor_data.dart';
 import 'package:telemon_app/src/data/model/device/sensors/eeg_sensor_data.dart';
 import 'package:telemon_app/src/data/model/device/sensors/emg_sensor_data.dart';
-import 'package:telemon_app/src/ui/view/pages/measurements/generic_view.dart';
-import 'package:telemon_app/src/ui/view/pages/menu_view.dart';
-import 'package:telemon_app/src/ui/view/widgets/pages/menu/wip_page.dart';
+import 'package:telemon_app/src/ui/view/views/measurements/generic_view.dart';
+import 'package:telemon_app/src/ui/view/views/menu/fragments/wip_page.dart';
+import 'package:telemon_app/src/ui/view/views/menu/menu_view.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 import 'consts/theme/theme.dart';
@@ -30,7 +30,7 @@ void main() {
         ],
         supportedLocales: [
           const Locale('pt', ''),
-         // const Locale('en', ''),
+          const Locale('en', ''),
         ],
         theme: mainTheme(),
         initialRoute: Routes.MENU_PAGE,

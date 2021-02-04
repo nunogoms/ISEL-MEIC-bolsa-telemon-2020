@@ -14,6 +14,12 @@
   "measurementDuration": "Duração da Medição",
   "graphDuration": "Tempo apresentado no Gráfico",
   "devicePermissions": "Esta aplicação utiliza um dispositivo médico para retirar dados clinícos em tempo real. Este dispositivo conecta-se através de bluetooth, e são necessárias permissões para tal.\nPor favor aceite para continuar.",
+  "start": "Começar",
+  "stop": "Parar",
+  "reset": "Limpar",
+  "save":"Guardar",
+
+
   "@weightMeasurement": {
     "description": "The title that appears in measurements referring to inserting a weight"
   },
@@ -58,5 +64,17 @@
   },
   "@devicePermissions": {
     "description": "Informing the user of the permissions needed to use the device"
+  },
+  "@start": {
+    "description": "Term for starting an action"
+  },
+  "@stop": {
+    "description": "Term for stop an action"
+  },
+  "@reset":{
+    "description": "Term for resetting an operation"
+  },
+  "@save":{
+    "description": "Term for saving an item"
   }
 }
