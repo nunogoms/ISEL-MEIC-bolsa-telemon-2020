@@ -18,6 +18,8 @@
   "stop": "Parar",
   "reset": "Limpar",
   "save":"Guardar",
+  "disconnect":"Desligar",
+  "deviceSearch": "Procura por Dispositivos",
 
 
   "@weightMeasurement": {
@@ -76,5 +78,11 @@
   },
   "@save":{
     "description": "Term for saving an item"
+  },
+  "@disconnect":{
+    "description": "Action to turn off a device from the phone"
+  },
+  "@deviceSearch":{
+    "description": "Searching for devices to connect"
   }
 }

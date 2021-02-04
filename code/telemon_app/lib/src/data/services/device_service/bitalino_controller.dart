@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:bitalino/bitalino.dart';
-import 'package:telemon_app/src/data/services/platforms/implementations/android.dart';
-import 'package:telemon_app/src/data/services/platforms/implementations/ios.dart';
-import 'package:telemon_app/src/data/services/platforms/platform.dart';
+import 'package:telemon_app/src/data/services/device_service/platforms/implementations/android.dart';
+import 'package:telemon_app/src/data/services/device_service/platforms/implementations/ios.dart';
+import 'package:telemon_app/src/data/services/device_service/platforms/platform.dart';
 import 'device_exceptions.dart';
 
 import 'package:telemon_app/src/data/model/device/sensors_codes.dart';
@@ -48,7 +48,7 @@ class BitalinoController {
 
   String getDeviceAddress() => _bitalinoController!=null ? _bitalinoController.address : null ;
 
-  Future<bool> disconnectDevice() async {
-    return await _bitalinoController.dispose().then((value) => _bitalinoController.disconnect());
+  Future<bool> disposeController() async {
+    return await _bitalinoController.dispose();
   }
 }

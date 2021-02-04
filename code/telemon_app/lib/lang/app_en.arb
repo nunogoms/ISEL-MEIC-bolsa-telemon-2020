@@ -17,5 +17,7 @@
   "start": "Start",
   "stop": "Stop",
   "reset": "Reset",
-  "save":"Save"
+  "save":"Save",
+  "disconnect":"Disconnect",
+  "deviceSearch": "Device Search"
 }

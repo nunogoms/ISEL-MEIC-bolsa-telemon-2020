@@ -12,7 +12,7 @@ class AndroidOperations implements PlatformOperations {
   Future<BITalinoController> connectToBluetoothDevice(String macAddress) async {
     BITalinoController bitalinoController = BITalinoController(
       macAddress,
-      CommunicationType.BLE,
+      CommunicationType.BTH,//TODO trocar p BLE
     );
 
     try {

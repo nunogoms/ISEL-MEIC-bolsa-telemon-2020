@@ -9,6 +9,7 @@ import 'package:telemon_app/src/data/model/device/sensors/ecg_sensor_data.dart';
 import 'package:telemon_app/src/data/model/device/sensors/eda_sensor_data.dart';
 import 'package:telemon_app/src/data/model/device/sensors/eeg_sensor_data.dart';
 import 'package:telemon_app/src/data/model/device/sensors/emg_sensor_data.dart';
+import 'package:telemon_app/src/ui/view/views/connection/bluetooth_search_page.dart';
 import 'package:telemon_app/src/ui/view/views/measurements/generic_view.dart';
 import 'package:telemon_app/src/ui/view/views/menu/fragments/wip_page.dart';
 import 'package:telemon_app/src/ui/view/views/menu/menu_view.dart';
@@ -36,6 +37,8 @@ void main() {
         initialRoute: Routes.MENU_PAGE,
         routes: {
           Routes.MENU_PAGE: (context) => MenuView(),
+          //Bluetooth Device Search
+          Routes.DEVICE_SEARCH_PAGE: (context) => BluetoothSearch(),
           //SENSORS
           Routes.SCALE_PAGE: (context) => WipPage(),
           Routes.EMG_PAGE: (context) => GenericView(EmgSensorData()),
