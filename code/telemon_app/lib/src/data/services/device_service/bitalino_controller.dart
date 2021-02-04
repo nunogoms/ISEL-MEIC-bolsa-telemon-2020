@@ -22,11 +22,13 @@ class BitalinoController {
 
   static PlatformOperations _getOperationAccordingToPlatform() {
     if(Platform.isAndroid) return AndroidOperations();
-    else if (Platform.isIOS) throw IosOperations(); //TODO add ios support
+    else if (Platform.isIOS) throw IosOperations();
     else throw OperatingSystemUnsupportedException(Platform.operatingSystem);
   }
 
   Future<bool> connectToDevice(String uuid) async {
+
+    //TODO this now works via UUID, so add the search functionality :)))
     _bitalinoController = await _operations.connectToBluetoothDevice(uuid);
     return await _bitalinoController.connect(
       onConnectionLost: () {
