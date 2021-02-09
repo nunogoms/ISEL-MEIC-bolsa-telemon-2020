@@ -9,9 +9,13 @@ class EegSensorData extends ISensor {
 
   int differenceToUnit = 10^6;
 
-  //Comes in millivolts
   @override
-  double normalizeValue(double valueSampled) {
+  SensorsCodes getSensorCode() {
+    return SensorsCodes.EEG;
+  }
+
+  @override
+  double applyTransferFunction(double valueSampled) {
     return ((((valueSampled / pow(2, this.sensorDataInfo.channelBits)) - (1 / 2)) *
         this.technicalInfo.vcc)) /
         this.sensorDataInfo.sensorGain *
@@ -19,7 +23,5 @@ class EegSensorData extends ISensor {
   }
 
   @override
-  SensorsCodes getSensorCode() {
-    return SensorsCodes.EEG;
-  }
+  double applyFilter(double normalizedValue) => normalizedValue;
 }

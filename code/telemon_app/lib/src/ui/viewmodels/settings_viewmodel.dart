@@ -10,8 +10,16 @@ class ExamSettings {
 }
 
 class SettingsViewModel extends ChangeNotifier {
-  ExamSettings examSettings = ExamSettings(
-      sampleFrequency: Frequency.HZ1000, secondsToShow: 2, duration: 15);
+  final startDuration = 15;
+  final startSecondsToShow = 2;
+  ExamSettings examSettings;
+
+  SettingsViewModel() {
+    examSettings = ExamSettings(
+        sampleFrequency: Frequency.HZ1000,
+        secondsToShow: this.startSecondsToShow,
+        duration: this.startDuration);
+  }
 
   List<Frequency> getPossibleFrequencies() {
     return [Frequency.HZ1, Frequency.HZ10, Frequency.HZ100, Frequency.HZ1000];
@@ -32,19 +40,17 @@ class SettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setTimesToShow(String newDur) {
+  void setSecondsToShow(String newDur) {
     this.examSettings.secondsToShow = int.parse(newDur);
     notifyListeners();
   }
 
   List<int> getPossibleDurations() {
-    return List.generate(
-        6, (index) => this.examSettings.duration * (index + 1));
+    return List.generate(6, (index) => startDuration * (index + 1));
   }
 
   List<int> getPossibleTimesToShow() {
-    return List.generate(
-            10, (index) => this.examSettings.secondsToShow * (index + 1))
+    return List.generate(10, (index) => startSecondsToShow * (index + 1))
         .where((element) => element <= this.examSettings.duration)
         .toList();
   }

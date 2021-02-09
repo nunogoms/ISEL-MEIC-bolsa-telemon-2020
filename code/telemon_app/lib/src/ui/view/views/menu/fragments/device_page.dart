@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemon_app/config/app_config.dart';
-import 'package:telemon_app/src/consts/globals.dart';
-import 'package:telemon_app/src/consts/theme/colors.dart';
-import 'package:telemon_app/src/consts/theme/theme.dart';
+import 'package:telemon_app/src/general/consts/globals.dart';
+import 'package:telemon_app/src/general/theme/colors.dart';
+import 'package:telemon_app/src/general/theme/theme.dart';
 import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
 
 class DevicePage extends StatefulWidget {
@@ -46,16 +46,17 @@ class _DevicePageState extends State<DevicePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             FloatingActionButton(
-             // onPressed: () => {Navigator.pushNamed(context, Routes.DEVICE_SEARCH_PAGE)},
-              onPressed: () => {deviceViewModel.connectDevice()}, //TODO try this
+              onPressed: () =>
+                  {Navigator.pushNamed(context, Routes.DEVICE_SEARCH_PAGE)},
+              // onPressed: () => {deviceViewModel.connectDevice()}, //TODO try this
               child: Icon(Icons.search),
             ),
-            /*Visibility(
+            Visibility(
                 visible: deviceViewModel.currDeviceMac.isNotEmpty,
                 child: FloatingActionButton.extended(
                   onPressed: () => {deviceViewModel.disconnectDevice()},
                   label: Text(l10n(context).disconnect),
-                ))*///TODO remover este comentario
+                ))
           ],
         ),
       ],

@@ -13,14 +13,17 @@ import 'package:telemon_app/src/ui/view/views/connection/bluetooth_search_page.d
 import 'package:telemon_app/src/ui/view/views/measurements/generic_view.dart';
 import 'package:telemon_app/src/ui/view/views/menu/fragments/wip_page.dart';
 import 'package:telemon_app/src/ui/view/views/menu/menu_view.dart';
+import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
-import 'consts/theme/theme.dart';
+import 'general/theme/theme.dart';
+
 
 void main() {
   runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SettingsViewModel()),
+        ChangeNotifierProvider(create: (context) => DeviceViewModel()),
       ],
       child: MaterialApp(
         title: APP_NAME,

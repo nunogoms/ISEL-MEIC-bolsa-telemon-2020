@@ -15,11 +15,14 @@ class AccSensorData extends ISensor {
   }
 
   @override
-  double normalizeValue(double valueSampled) {
+  double applyTransferFunction(double valueSampled) {
     if(cMin == cMax){
       cMin = - valueSampled;
       cMax= valueSampled;
     }
     return ((valueSampled - cMin) / (cMax - cMin)) * 2 - 1;
   }
+
+  @override
+  double applyFilter(double normalizedValue) => normalizedValue;
 }

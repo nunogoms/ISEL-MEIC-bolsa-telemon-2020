@@ -1,6 +1,6 @@
 
 class GraphUnits{
-  static const independentUnit = "s";
+  static const independentUnit = "ms";
 }
 
 class GraphSettings{

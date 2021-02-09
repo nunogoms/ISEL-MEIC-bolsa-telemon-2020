@@ -8,16 +8,18 @@ class EdaSensorData extends ISensor {
       : super(TechnicalInfo(vcc: 3.3, measurementUnit: "𝜇S"),
             SensorDataInfo(maxValue: 12.0, minValue: 0.0, sensorGain: 0.132));
 
-  //Comes in millivolts
   @override
-  double normalizeValue(double valueSampled) {
+  SensorsCodes getSensorCode() {
+    return SensorsCodes.EDA;
+  }
+
+  @override
+  double applyTransferFunction(double valueSampled) {
     return (((valueSampled / pow(2, this.sensorDataInfo.channelBits)) *
             this.technicalInfo.vcc) /
         this.sensorDataInfo.sensorGain);
   }
 
   @override
-  SensorsCodes getSensorCode() {
-    return SensorsCodes.EDA;
-  }
+  double applyFilter(double normalizedValue) => normalizedValue;
 }

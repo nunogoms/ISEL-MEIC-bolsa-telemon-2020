@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_controller.dart';
-import 'package:telemon_app/src/data/services/device_service/bitalino_controller.dart';
-
-const macAddress = "20:15:12:22:84:72"; //TODO change
+import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/data/services/device_service/bitalino/bitalino_controller.dart';
 
 class DeviceViewModel extends ChangeNotifier {
   String currDeviceMac = "";
@@ -11,10 +10,12 @@ class DeviceViewModel extends ChangeNotifier {
   BitalinoController _deviceController = BitalinoController();
   BluetoothController _bluetoothController = BluetoothController();
 
-  Future<void> connectDevice() async {
-    if (currDeviceMac.isEmpty)
-      await _deviceController.connectToDevice(macAddress);
-    currDeviceMac = _deviceController.getDeviceAddress();
+  Future<void> connectDevice({String macAddress, String uuid}) async {
+    if (currDeviceMac.isEmpty) {
+      //TODO uncomment for bitalino
+      //await _deviceController.connectToDevice(uuid);
+    }
+    currDeviceMac = macAddress;
     notifyListeners();
   }
 
@@ -23,12 +24,14 @@ class DeviceViewModel extends ChangeNotifier {
   }
 
   disconnectDevice() async {
-
+    //_deviceController.disposeController(); TODO uncomment for bitalino
+    currDeviceMac= "";
+    notifyListeners();
   }
 
-  searchAllDevices() async {
-    _bluetoothController.scanDevices(timeOutInSeconds);
+  List<ScanResult> scanDevices(Function valueCB )  => _bluetoothController.scanDevices(timeOutInSeconds, valueCB );
+
+  Future<void> stopScanning() async {
+    await _bluetoothController.stopScanning();
   }
-
-
 }

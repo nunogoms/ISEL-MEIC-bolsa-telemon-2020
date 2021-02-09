@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:telemon_app/src/consts/theme/colors.dart';
-import 'package:telemon_app/src/consts/theme/theme.dart';
+import 'package:telemon_app/src/general/theme/colors.dart';
+import 'package:telemon_app/src/general/theme/theme.dart';
 
 
 class MeasurementsButton extends StatelessWidget {

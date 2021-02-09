@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
 import 'package:telemon_app/src/data/model/exams/exam.dart';
-import 'package:telemon_app/src/data/services/device_service/bitalino_controller.dart';
+import 'package:telemon_app/src/data/services/device_service/bitalino/bitalino_object.dart';
+import 'package:telemon_app/src/data/services/device_service/contracts/idevice_controller.dart';
+import 'package:telemon_app/src/data/services/device_service/mocker/mock_controller.dart';
+import 'package:telemon_app/src/data/services/device_service/mocker/mock_object.dart';
+import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/data/services/device_service/bitalino/bitalino_controller.dart';
 import 'package:telemon_app/src/data/services/file_service/exam_file_handler.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
@@ -14,7 +18,7 @@ class ExamViewModel extends ChangeNotifier {
   ExamState examState = ExamState.INIT;
   final ExamSettings examSettings;
 
-  static BitalinoController _deviceController = BitalinoController();
+  static IDeviceController _deviceController = MockController();
 
   ExamViewModel(this.sensor, this.examSettings)
       : exams = [
@@ -33,8 +37,28 @@ class ExamViewModel extends ChangeNotifier {
         frequency: examSettings.sampleFrequency,
         secondsToShow: examSettings.secondsToShow));
 
-    try {
-      await _deviceController.startAcquisition(
+     try {
+      await _deviceController.startAcquisition( MockObject(
+          sensor.getSensorCode(), examSettings.sampleFrequency, (int frame) {
+        if (examState != ExamState.MEASURING) return;
+
+        bool addedSuccessfully = exams.last
+            .addValue(frame.toDouble());
+
+        if (!addedSuccessfully) {
+          examState = ExamState.FINISHED;
+          stopMeasuring();
+        }
+        notifyListeners();
+      }));
+    } on Exception catch (Exception) {
+      print(Exception); //TODO deal wit exceptions
+    }
+    notifyListeners();
+    return;
+
+   /* try { //TODO uncomment for Bitalino
+      await _deviceController.startAcquisition( BitalinoObject(
           sensor.getSensorCode(), examSettings.sampleFrequency, (frame) {
         if (examState != ExamState.MEASURING) return;
         bool addedSuccessfully = exams.last
@@ -44,12 +68,12 @@ class ExamViewModel extends ChangeNotifier {
           stopMeasuring();
         }
         notifyListeners();
-      });
+      }));
     } on Exception catch (Exception) {
       print(Exception); //TODO deal wit exceptions
     }
     notifyListeners();
-    return;
+    return;*/
   }
 
   Future<bool> stopMeasuring() async {
@@ -84,6 +108,5 @@ class ExamViewModel extends ChangeNotifier {
         .whenComplete(() => examState = ExamState.INIT);
 
     //TODO deal wit exceptions
-    //TODO alterar palavras p portugues tudo
   }
 }

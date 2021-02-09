@@ -19,5 +19,9 @@
   "reset": "Reset",
   "save":"Save",
   "disconnect":"Disconnect",
-  "deviceSearch": "Device Search"
+  "deviceSearch": "Device Search",
+  "name": "Name",
+  "mac": "MAC",
+  "unknownName": "(Unknown Name)",
+  "connect": "Connect"
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:telemon_app/config/app_config.dart';
-import 'package:telemon_app/src/consts/globals.dart';
-import 'package:telemon_app/src/consts/theme/colors.dart';
+import 'package:telemon_app/src/general/consts/globals.dart';
+import 'package:telemon_app/src/general/theme/colors.dart';
 import 'package:telemon_app/src/ui/view/views/measurements/generic_view.dart';
 import 'package:telemon_app/src/ui/view/widgets/buttons/measurements_button.dart';
 
@@ -9,7 +9,6 @@ class MeasurementsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       //TODO add theme.spacing
       child: Column(children: <Widget>[
         MeasurementsButton(

@@ -17,10 +17,13 @@ class EcgSensorData extends ISensor {
   }
 
   @override
-  double normalizeValue(double valueSampled) {
+  double applyTransferFunction(double valueSampled) {
     return ((((valueSampled / pow(2, this.sensorDataInfo.channelBits)) -
                 (1 / 2)) *
             this.technicalInfo.vcc) /
         this.sensorDataInfo.sensorGain)* differenceToMilliVolt;
   }
+
+  @override
+  double applyFilter(double normalizedValue) => normalizedValue;
 }

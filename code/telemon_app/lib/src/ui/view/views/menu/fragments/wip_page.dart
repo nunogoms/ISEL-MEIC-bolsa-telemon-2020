@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:telemon_app/src/consts/globals.dart';
+import 'package:telemon_app/src/general/consts/globals.dart';
 
 class WipPage extends StatelessWidget {
   @override

@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:telemon_app/src/consts/globals.dart';
-import 'package:telemon_app/src/consts/theme/colors.dart';
+import 'package:telemon_app/src/general/consts/globals.dart';
+import 'package:telemon_app/src/general/theme/colors.dart';
 import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
 import 'package:telemon_app/src/ui/view/widgets/bottom_nav_bar.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/menu/fragments/device_page.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/menu/fragments/measurements_page.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/menu/fragments/settings_page.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/menu/fragments/wip_page.dart';
-import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
+
+import 'fragments/device_page.dart';
+import 'fragments/measurements_page.dart';
+import 'fragments/settings_page.dart';
+import 'fragments/wip_page.dart';
 
 class MenuObject {
   Widget widget;
@@ -46,7 +45,8 @@ class _MenuViewState extends State<MenuView> {
     return WillPopScope(
         onWillPop: () {
           setState(() {
-            currentMenuIndex = historic.last;
+            //Setting up a manual historic to travel between accessed pages
+            if (historic.length > 0) currentMenuIndex = historic.last;
             if (historic.length > 1) historic.removeLast();
           });
           return Future.value(true);
@@ -57,13 +57,11 @@ class _MenuViewState extends State<MenuView> {
                 .build(context),
             bottomNavigationBar:
                 BottomNavBar(index: currentMenuIndex, handleIndex: _handleTap),
-            body: ChangeNotifierProvider(
-                create: (context) => DeviceViewModel(),
-                child: new Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  color: ThemeColors.theme.PRIMARY_WHITE,
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: menuWidgetOptions.elementAt(currentMenuIndex).widget,
-                ))));
+            body: new Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              color: ThemeColors.theme.PRIMARY_WHITE,
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: menuWidgetOptions.elementAt(currentMenuIndex).widget,
+            )));
   }
 }

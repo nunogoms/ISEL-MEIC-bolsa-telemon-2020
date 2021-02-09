@@ -12,12 +12,17 @@ class Exam {
   int currentTime = 0;
 
   int secondsToShow;
+  int maxSamplesToShow;
+
 
   final List<SensorValue> _fullExamValues = List<SensorValue>();
 
-  Exam(
-      {this.duration, this.sensor, this.frequency,this.secondsToShow, this.independentUnit = "ms"})
-      : maxSamples = serializeFrequency(frequency) * duration;
+  Exam({this.duration, this.sensor, this.frequency,this.secondsToShow, this.independentUnit = "ms"}){
+    maxSamplesToShow = (secondsToShow*serializeFrequency(frequency)).toInt();
+    maxSamples = serializeFrequency(frequency) * duration;
+  }
+
+
 
   bool addValue(double sampledValue) {
     if (_fullExamValues.isEmpty) {
@@ -27,16 +32,16 @@ class Exam {
     }
 
     SensorValue sensorValue = SensorValue(
-        currentTime += (1000 / serializeFrequency(frequency)).toInt(),
-        sensor.normalizeValue(sampledValue));
+        currentTime += (1000 / serializeFrequency(frequency)).toInt(),//todo
+        sensor.normalizeAndFilterValue(sampledValue));
     _fullExamValues.add(sensorValue);
     return true;
   }
 
   List<SensorValue> getVisualValues() {
     var listLength = _fullExamValues.length;
-    var maxSamplesToShow = (secondsToShow*serializeFrequency(frequency)).toInt();
-    if(maxSamplesToShow<listLength) return _fullExamValues.sublist(listLength-maxSamplesToShow,listLength);
+    if(maxSamplesToShow<listLength)
+      return _fullExamValues.sublist(listLength-maxSamplesToShow,listLength);
     else
       return _fullExamValues.sublist(0,listLength);
   }

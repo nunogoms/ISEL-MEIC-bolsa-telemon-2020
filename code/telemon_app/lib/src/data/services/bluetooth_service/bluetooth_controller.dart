@@ -3,12 +3,10 @@ import 'package:flutter_blue/flutter_blue.dart';
 class BluetoothController {
   FlutterBlue _flutterBlue  = FlutterBlue.instance;
 
-  scanDevices(int timeoutInSeconds){
+  List<ScanResult> scanDevices(int timeoutInSeconds,  Function valueCB){
     // this line will start scanning bluetooth devices
-    List<ScanResult> devicesFound = List();
-    _flutterBlue.scan(timeout: Duration(seconds: timeoutInSeconds)).listen((scanResult) =>
-      devicesFound.add(scanResult)
-    );
-    return devicesFound;
+    _flutterBlue.scan(timeout: Duration(seconds: timeoutInSeconds)).listen((scanResult) => valueCB(scanResult));
   }
+
+  Future<void> stopScanning() async => await _flutterBlue.stopScan();
 }

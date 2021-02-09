@@ -2,8 +2,9 @@ import 'package:bitalino/bitalino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telemon_app/src/consts/globals.dart';
+import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
+import 'package:telemon_app/src/general/extension_methods/string_extension.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -22,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(children: <Widget>[
       Row(
         children: [
-          Text(l10n(context).frequency + " : "),
+          Text(l10n(context).frequency.toString().addTwoDots),
           DropdownButton<String>(
             value: settingsViewModel.examSettings.sampleFrequency.toString(),
             icon: Icon(Icons.arrow_drop_down_circle_outlined),
@@ -49,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       Row(
         children: [
-          Text(l10n(context).measurementDuration + "(s) : "),
+          Text(l10n(context).measurementDuration.toString().addSecondsAndTwoDots),
           DropdownButton<String>(
             value: settingsViewModel.examSettings.duration.toString(),
             icon: Icon(Icons.arrow_drop_down_circle_outlined),
@@ -76,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       Row(
         children: [
-          Text(l10n(context).graphDuration + "(s) : "),
+          Text(l10n(context).graphDuration.toString().addSecondsAndTwoDots),
           DropdownButton<String>(
             value: settingsViewModel.examSettings.secondsToShow.toString(),
             icon: Icon(Icons.arrow_drop_down_circle_outlined),
@@ -88,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
               color: Colors.deepPurpleAccent,
             ),
             onChanged: (String newValue) {
-              settingsViewModel.setTimesToShow(newValue);
+              settingsViewModel.setSecondsToShow(newValue);
             },
             items: settingsViewModel
                 .getPossibleTimesToShow()

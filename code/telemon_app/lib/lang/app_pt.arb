@@ -20,6 +20,12 @@
   "save":"Guardar",
   "disconnect":"Desligar",
   "deviceSearch": "Procura por Dispositivos",
+  "name": "Nome",
+  "mac": "MAC",
+  "unknownName": "(Nome Indisponível)",
+  "connect": "Ligar",
+  "tryingConnect": "Tentanto conectar.",
+  "connectionError":"Houve um erro nesta conexão.",
 
 
   "@weightMeasurement": {
@@ -84,5 +90,23 @@
   },
   "@deviceSearch":{
     "description": "Searching for devices to connect"
+  },
+  "@name":{
+    "description": "Searching for devices to connect"
+  },
+  "@mac":{
+    "description": "The Media Access Control address short form"
+  },
+  "@unknownName":{
+    "description": "The presented string, in the case the name is not known"
+  },
+  "@connect":{
+    "description": "To connect to a device to retrieve data"
+  },
+  "@tryingConnect":{
+    "description": "The presented string, in the case the name is not known"
+  },
+  "@connectionError":{
+    "description": "To connect to a device to retrieve data"
   }
 }
