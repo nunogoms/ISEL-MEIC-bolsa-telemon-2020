@@ -43,6 +43,7 @@ class _OldChartState extends State<OldChart> {
           charts.ChartTitle(widget.exam.sensor.technicalInfo.measurementUnit,
               behaviorPosition: charts.BehaviorPosition.start),
         ],
+        defaultRenderer: charts.LineRendererConfig(strokeWidthPx: GraphSettings.lineWidth),
         animate: false,
         primaryMeasureAxis: charts.NumericAxisSpec(
           //Line below removes the grey lines and adds a vertical on the Y axis

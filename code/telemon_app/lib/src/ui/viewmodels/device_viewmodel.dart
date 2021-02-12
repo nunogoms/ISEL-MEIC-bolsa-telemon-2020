@@ -13,7 +13,7 @@ class DeviceViewModel extends ChangeNotifier {
   Future<void> connectDevice({String macAddress, String uuid}) async {
     if (currDeviceMac.isEmpty) {
       //TODO uncomment for bitalino
-      //await _deviceController.connectToDevice(uuid);
+      await _deviceController.connectToDevice(uuid);
     }
     currDeviceMac = macAddress;
     notifyListeners();
@@ -24,7 +24,8 @@ class DeviceViewModel extends ChangeNotifier {
   }
 
   disconnectDevice() async {
-    //_deviceController.disposeController(); TODO uncomment for bitalino
+    // TODO uncomment for bitalino
+    _deviceController.disposeController();
     currDeviceMac= "";
     notifyListeners();
   }
