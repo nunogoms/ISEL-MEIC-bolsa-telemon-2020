@@ -48,7 +48,6 @@ class _DevicePageState extends State<DevicePage> {
             FloatingActionButton(
               onPressed: () =>
                   {Navigator.pushNamed(context, Routes.DEVICE_SEARCH_PAGE)},
-              // onPressed: () => {deviceViewModel.connectDevice()}, //TODO try this
               child: Icon(Icons.search),
             ),
             Visibility(

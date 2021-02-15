@@ -48,9 +48,10 @@ class _BluetoothSearchState extends State<BluetoothSearch> {
   _searchDevices(DeviceViewModel deviceViewModel) {
     if (foundDevices.isEmpty) {
       deviceViewModel.scanDevices((ScanResult scanResult) {
-        if (scanResult.advertisementData.connectable) {
-          setState(() => foundDevices.add(scanResult));
-        }
+        setState(() => foundDevices.add(scanResult));
+        /*if (scanResult.advertisementData.connectable) {
+          //TODO testing
+        }*/
       });
     }
   }
