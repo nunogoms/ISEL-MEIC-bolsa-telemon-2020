@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_dev.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/general/extension_methods/string_extension.dart';
 import 'package:telemon_app/src/general/theme/fonts.dart';
 
 class BluetoothDeviceEntry extends StatelessWidget {
-  final ScanResult element;
+  final BluetoothDev device;
   final Function onConnectFunction;
 
-  BluetoothDeviceEntry(this.element, this.onConnectFunction);
+  BluetoothDeviceEntry(this.device, this.onConnectFunction);
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +31,14 @@ class BluetoothDeviceEntry extends StatelessWidget {
                           children: [
                             Text(
                               l10n(context).name.toString().addTwoDots +
-                                  (element.device.name.isEmpty
+                                  (device.name.isEmpty
                                       ? l10n(context).unknownName
-                                      : element.device.name),
+                                      : device.name),
                               style:
                                   TextStyle(fontSize: CustomFont.H3.fontSize),
                             ),
                             Text(l10n(context).mac.toString().addTwoDots +
-                                element.device.id.toString())
+                                device.macId.toString())
                           ]),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +46,7 @@ class BluetoothDeviceEntry extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.all(0),
                               child: FloatingActionButton.extended(
-                                heroTag: element.device.id.toString()+"heroId",
+                                heroTag: device.macId.toString()+"heroId",
                                 onPressed: () => onConnectFunction(context),
                                 label: Text(l10n(context).connect),
                               ))

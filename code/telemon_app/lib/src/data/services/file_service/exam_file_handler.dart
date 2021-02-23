@@ -12,7 +12,7 @@ class ExamFileHandler extends FileHandler<Exam> {
         .writeAsString("Exam Type : ${exam.sensor.getSensorCode()}\n",
             mode: FileMode.append)
         .then((_) => file.writeAsString(
-            "Start Date : ${DateTime.fromMillisecondsSinceEpoch(exam.startingDatetime)}\n",
+            "Start Date : ${exam.startingDatetime.millisecondsSinceEpoch}\n",
             mode: FileMode.append))
         .then((_) => file.writeAsString(
             "UnitY : ${exam.sensor.technicalInfo.measurementUnit}\n",

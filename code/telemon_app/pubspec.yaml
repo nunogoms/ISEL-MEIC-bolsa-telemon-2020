@@ -38,8 +38,11 @@ dependencies:
   path_provider: ^1.6.27
   provider: ^3.0.0
 
-  #bluetooth
+  #bluetooth - ble
   flutter_blue: ^0.7.3
+  #bluetooth - classic
+  flutter_bluetooth_serial: ^0.2.2
+  bluez: ^0.1.1
 
 
   # The following adds the Cupertino Icons font to your application.

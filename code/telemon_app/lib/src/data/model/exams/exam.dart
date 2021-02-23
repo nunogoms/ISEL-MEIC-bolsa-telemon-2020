@@ -8,7 +8,7 @@ class Exam {
   String independentUnit;
 
   int maxSamples;
-  int startingDatetime;
+  DateTime startingDatetime;
   int currentTime = 0;
 
   int secondsToShow;
@@ -20,16 +20,13 @@ class Exam {
   Exam({this.duration, this.sensor, this.frequency,this.secondsToShow, this.independentUnit = "ms"}){
     maxSamplesToShow = (secondsToShow*serializeFrequency(frequency)).toInt();
     maxSamples = serializeFrequency(frequency) * duration;
+    startingDatetime= DateTime.now();
   }
 
 
 
   bool addValue(double sampledValue) {
-    if (_fullExamValues.isEmpty) {
-      startingDatetime = DateTime.now().millisecondsSinceEpoch;
-    } else if (_fullExamValues.length >= maxSamples) {
-      return false;
-    }
+    if(_fullExamValues.length >= maxSamples)return false;
 
     SensorValue sensorValue = SensorValue(
         currentTime += (1000 / serializeFrequency(frequency)).toInt(),//todo

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
+import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_dev.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
 import 'package:telemon_app/src/ui/view/widgets/bluetooth_device_entry.dart';
@@ -13,7 +14,7 @@ class BluetoothSearch extends StatefulWidget {
 }
 
 class _BluetoothSearchState extends State<BluetoothSearch> {
-  List<ScanResult> foundDevices = List();
+  List<BluetoothDev> foundDevices = List();
   SnackBar snackBar;
   DeviceViewModel deviceViewModel;
 
@@ -47,20 +48,18 @@ class _BluetoothSearchState extends State<BluetoothSearch> {
 
   _searchDevices(DeviceViewModel deviceViewModel) {
     if (foundDevices.isEmpty) {
-      deviceViewModel.scanDevices((ScanResult scanResult) {
+      deviceViewModel.scanDevices((BluetoothDev scanResult ) {
         setState(() => foundDevices.add(scanResult));
-        /*if (scanResult.advertisementData.connectable) {
-          //TODO testing
-        }*/
       });
     }
   }
 
-  //TODO change this to another place likely a viewModel, too big and error prone to be in the view
-  _onConnectListener(ScanResult scanResult, DeviceViewModel deviceViewModel,
+  //TODO change this to bluetooth controller and vm
+  //TODO arranjar o uuid noutro lado maybe ? IDK vou aqui chegar com Mac though
+  _onConnectListener(BluetoothDev scanResult, DeviceViewModel deviceViewModel,
       BuildContext context) async {
     List<BluetoothService> services = List();
-    BluetoothDevice device = scanResult.device;
+    /*BluetoothDevice device = scanResult;
 
     try {
       snackBar = SnackBar(content:Text( l10n(context).tryingConnect));
@@ -81,6 +80,6 @@ class _BluetoothSearchState extends State<BluetoothSearch> {
       snackBar = SnackBar(content: Text(l10n(context).connectionError));
     } finally {
       Scaffold.of(context).showSnackBar(snackBar);
-    }
+    }*/
   }
 }

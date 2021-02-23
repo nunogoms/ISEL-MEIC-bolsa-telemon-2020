@@ -92,8 +92,7 @@ class ExamViewModel extends ChangeNotifier {
 
     fileHandler.setFilename(currExam.sensor.getSensorCode().toString() +
         "_" +
-        DateTime.fromMillisecondsSinceEpoch(currExam.startingDatetime)
-            .toString());
+        currExam.startingDatetime.toString());
     fileHandler.writeFile(currExam);
   }
 
