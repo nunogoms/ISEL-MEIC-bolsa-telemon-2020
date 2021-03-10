@@ -24,7 +24,7 @@ class MeasurementsButton extends StatelessWidget {
                 onPressed: () => this.onPressed(this.title),
                 child: Text(this.title,
                     textAlign: TextAlign.center,
-                    style: mainTheme().textTheme.headline2.copyWith(
+                    style: mainTheme().textTheme.headline2!.copyWith(
                           color: this.color,
                         )
                 )

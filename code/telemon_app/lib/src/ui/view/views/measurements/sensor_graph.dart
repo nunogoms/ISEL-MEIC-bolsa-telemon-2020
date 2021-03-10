@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
-import 'package:telemon_app/src/data/model/exams/exam.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
-import 'package:telemon_app/src/ui/view/widgets/measurements/utils/OldChart.dart';
-import 'package:telemon_app/src/ui/viewmodels/exam_viewmodel.dart';
+import 'package:telemon_app/src/ui/view/widgets/measurements/chart.dart';
+import 'package:telemon_app/src/ui/viewmodels/measurement_viewmodel.dart';
 
 class SensorGraph extends StatefulWidget {
   final ISensor sensorDevice;
 
-  const SensorGraph({Key key, this.sensorDevice}) : super(key: key);
+  const SensorGraph({required Key key, required this.sensorDevice}) : super(key: key);
 
   @override
   _SensorGraph createState() => _SensorGraph();
@@ -18,9 +17,9 @@ class SensorGraph extends StatefulWidget {
 class _SensorGraph extends State<SensorGraph> {
   GlobalKey<ScaffoldState> _sensorKey = GlobalKey<ScaffoldState>();
 
-  Widget _getIconText(ExamViewModel sensorVM) {
-    Widget toRet = null;
-    switch (sensorVM.examState) {
+  Widget _getIconText(ExamViewModel examVM) {
+    Widget? toRet;
+    switch (examVM.examState) {
       case ExamState.INIT:
         toRet = Text(l10n(context).start);
         break;
@@ -35,7 +34,7 @@ class _SensorGraph extends State<SensorGraph> {
 
   @override
   Widget build(BuildContext context) {
-    ExamViewModel examVM = Provider.of<ExamViewModel>(context);
+    ExamViewModel examVM = Provider.of<ExamViewModel>(this.context);
 
     return Column(
       key: _sensorKey,
@@ -45,7 +44,7 @@ class _SensorGraph extends State<SensorGraph> {
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 5, top: 20, right: 10, bottom: 10),
-            child: OldChart(examVM.exams.last, examVM.examSettings),
+            child: Chart(examVM.measurement, examVM.examSettings),
           ),
         ),
         Expanded(

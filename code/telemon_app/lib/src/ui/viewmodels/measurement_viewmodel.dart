@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
-import 'package:telemon_app/src/data/model/exams/exam.dart';
+import 'package:telemon_app/src/data/model/measurements/exam.dart';
+import 'package:telemon_app/src/data/model/measurements/measurement.dart';
+import 'package:telemon_app/src/data/services/device_service/bitalino/bitalino_controller.dart';
 import 'package:telemon_app/src/data/services/device_service/bitalino/bitalino_object.dart';
 import 'package:telemon_app/src/data/services/device_service/contracts/idevice_controller.dart';
-import 'package:telemon_app/src/data/services/device_service/mocker/mock_controller.dart';
 import 'package:telemon_app/src/data/services/file_service/exam_file_handler.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
@@ -11,29 +12,48 @@ enum ExamState { INIT, MEASURING, FINISHED }
 
 class ExamViewModel extends ChangeNotifier {
   final ISensor sensor;
-  final List<Exam> exams;
+  final List<Exam> exams = [];
   final ExamFileHandler fileHandler = new ExamFileHandler();
   ExamState examState = ExamState.INIT;
   final ExamSettings examSettings;
+  final Measurement measurement;
 
-  static IDeviceController _deviceController = MockController();
+  //TODO alterar isto too
+  static IDeviceController _deviceController = BitalinoController();
+
+
+  @override
+  void dispose() async {
+    await _deviceController.stopAcquisition();
+    //TODO ask se vale a pena reiniciar e descartar controller each time
+    super.dispose();
+  }
 
   ExamViewModel(this.sensor, this.examSettings)
-      : exams = [
-          Exam(
-              duration: examSettings.duration,
-              sensor: sensor,
-              frequency: examSettings.sampleFrequency,
-              secondsToShow: examSettings.secondsToShow)
-        ];
+      : measurement = Measurement(
+            sensor: sensor,
+            frequency: examSettings.sampleFrequency,
+            secondsToShow: examSettings.secondsToShow) {
+    try {
+      _deviceController.startAcquisition(BitalinoObject(
+          sensor.getSensorCode(), examSettings.sampleFrequency, (frame) {
+        bool addedSuccessfully = measurement
+            .addValue(frame.analog[sensor.getSensorCode().index].toDouble());
+        if (!addedSuccessfully) {
+          stopMeasuring();
+        }
+        notifyListeners();
+      }));
+    } on Exception catch (Exception) {
+      print(Exception); //TODO deal wit exceptions
+    }
+    notifyListeners();
+    return;
+  }
 
   Future<void> startMeasuring() async {
+    measurement.startExam(examSettings.duration);
     examState = ExamState.MEASURING;
-    exams.add(Exam(
-        duration: examSettings.duration,
-        sensor: sensor,
-        frequency: examSettings.sampleFrequency,
-        secondsToShow: examSettings.secondsToShow));
 
     //TODO uncomment for mocker
     /*
@@ -59,54 +79,29 @@ class ExamViewModel extends ChangeNotifier {
     */
 
     //TODO uncomment for Bitalino
-    try {
-      await _deviceController.startAcquisition(BitalinoObject(
-          sensor.getSensorCode(), examSettings.sampleFrequency, (frame) {
-        if (examState != ExamState.MEASURING) return;
-        bool addedSuccessfully = exams.last
-            .addValue(frame.analog[sensor.getSensorCode().index].toDouble());
-        if (!addedSuccessfully) {
-          examState = ExamState.FINISHED;
-          stopMeasuring();
-        }
-        notifyListeners();
-      }));
-    } on Exception catch (Exception) {
-      print(Exception); //TODO deal wit exceptions
-    }
-    notifyListeners();
-    return;
   }
 
   Future<bool> stopMeasuring() async {
     examState = ExamState.FINISHED;
-    return await _deviceController
-        .stopAcquisition()
-        .whenComplete(() => notifyListeners());
+    exams.add(measurement.finishExam());
+    return true;
     //TODO deal wit exceptions
   }
 
   Future<void> saveExam() async {
+    examState = ExamState.INIT;
     Exam currExam = exams.last;
-    resetMeasuring();
 
     fileHandler.setFilename(currExam.sensor.getSensorCode().toString() +
         "_" +
         currExam.startingDatetime.toString());
     fileHandler.writeFile(currExam);
+    notifyListeners();
   }
 
   Future<void> resetMeasuring() async {
-    await stopMeasuring()
-        .whenComplete(() => {
-              exams.add(Exam(
-                  duration: examSettings.duration,
-                  sensor: sensor,
-                  frequency: examSettings.sampleFrequency,
-                  secondsToShow: examSettings.secondsToShow)),
-              notifyListeners()
-            })
-        .whenComplete(() => examState = ExamState.INIT);
+    examState = ExamState.INIT;
+    notifyListeners();
 
     //TODO deal wit exceptions
   }

@@ -1,3 +1,4 @@
+import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_dev.dart';
 import 'package:telemon_app/src/data/services/device_service/contracts/idevice_controller.dart';
 import 'package:telemon_app/src/data/services/device_service/mocker/mock_device.dart';
 
@@ -5,7 +6,7 @@ import 'mock_object.dart';
 
 class MockController extends IDeviceController<MockObject> {
   final MockDevice _mockDevice = MockDevice();
-  String currHash;
+  String? currHash;
 
   static final IDeviceController _instance =
       MockController._privateConstructor();
@@ -14,22 +15,22 @@ class MockController extends IDeviceController<MockObject> {
     _mockDevice.setup();
   }
 
-  factory MockController() {
+  IDeviceController getInstance() {
     return _instance;
   }
 
-  Future<bool> connectToDevice(String uuid) async {
+  Future<bool> connectToDevice(BluetoothDev bluetoothDev) async {
     return Future.value(true);
   }
 
   Future<bool> startAcquisition(MockObject bitalinoObject) async {
     currHash =
         bitalinoObject.sampleFreq.toString() + bitalinoObject.sensor.toString();
-    return await _mockDevice.addListener(currHash, bitalinoObject.callbackFun);
+    return await _mockDevice.addListener(currHash!, bitalinoObject.callbackFun);
   }
 
   Future<bool> stopAcquisition() async {
-    bool ans = await _mockDevice.removeListener(currHash);
+    bool ans = await _mockDevice.removeListener(currHash!);
     currHash = null;
     return ans;
   }

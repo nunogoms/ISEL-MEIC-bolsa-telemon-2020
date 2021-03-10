@@ -7,7 +7,7 @@ class BottomNavBar extends StatelessWidget {
   final int index;
   final Function(int) handleIndex;
 
-  BottomNavBar({Key key, this.index, this.handleIndex}) : super(key: key);
+  BottomNavBar({required Key key, required this.index, required this.handleIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

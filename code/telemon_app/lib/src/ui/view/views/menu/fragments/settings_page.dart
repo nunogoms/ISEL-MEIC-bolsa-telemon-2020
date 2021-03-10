@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
-import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 import 'package:telemon_app/src/general/extension_methods/string_extension.dart';
+import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     SettingsViewModel settingsViewModel =
-        Provider.of<SettingsViewModel>(context);
+        Provider.of<SettingsViewModel>(this.context);
 
     return Container(
         child: Column(children: <Widget>[
@@ -34,9 +34,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 2,
               color: Colors.deepPurpleAccent,
             ),
-            onChanged: (String newValue) {
-              settingsViewModel.setSampleFrequency(newValue);
-            },
+            onChanged: settingsViewModel.setSampleFrequency,
             items: settingsViewModel
                 .getPossibleFrequencies()
                 .map<DropdownMenuItem<String>>((Frequency value) {
@@ -50,7 +48,10 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       Row(
         children: [
-          Text(l10n(context).measurementDuration.toString().addSecondsAndTwoDots),
+          Text(l10n(context)
+              .measurementDuration
+              .toString()
+              .addSecondsAndTwoDots),
           DropdownButton<String>(
             value: settingsViewModel.examSettings.duration.toString(),
             icon: Icon(Icons.arrow_drop_down_circle_outlined),
@@ -61,9 +62,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 2,
               color: Colors.deepPurpleAccent,
             ),
-            onChanged: (String newValue) {
-              settingsViewModel.setDuration(newValue);
-            },
+            onChanged: settingsViewModel.setDuration,
             items: settingsViewModel
                 .getPossibleDurations()
                 .map<DropdownMenuItem<String>>((int value) {
@@ -88,9 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 2,
               color: Colors.deepPurpleAccent,
             ),
-            onChanged: (String newValue) {
-              settingsViewModel.setSecondsToShow(newValue);
-            },
+            onChanged: settingsViewModel.setSecondsToShow,
             items: settingsViewModel
                 .getPossibleTimesToShow()
                 .map<DropdownMenuItem<String>>((int value) {

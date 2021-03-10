@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:telemon_app/src/data/model/exams/exam.dart';
+import 'package:telemon_app/src/data/model/measurements/exam.dart';
 import 'package:telemon_app/src/data/services/file_service/file_handler.dart';
 
 class ExamFileHandler extends FileHandler<Exam> {

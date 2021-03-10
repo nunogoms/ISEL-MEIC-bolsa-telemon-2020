@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart';
 
 abstract class FileHandler<T> {
 
-  String _fileName;
+  late final String _fileName;
 
   void setFilename(String filename){
     this._fileName = filename;

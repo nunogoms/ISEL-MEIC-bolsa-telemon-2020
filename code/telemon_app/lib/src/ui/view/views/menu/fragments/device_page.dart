@@ -17,7 +17,7 @@ class _DevicePageState extends State<DevicePage> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceViewModel = Provider.of<DeviceViewModel>(context);
+    DeviceViewModel deviceViewModel = Provider.of<DeviceViewModel>(this.context);
 
     return Column(
       children: <Widget>[
@@ -32,13 +32,13 @@ class _DevicePageState extends State<DevicePage> {
                   child: Text(l10n(context).connectedDevice,
                       style: mainTheme()
                           .textTheme
-                          .headline4
+                          .headline4!
                           .copyWith(color: Colors.white)),
                 ),
                 Text("${deviceViewModel.currDeviceMac}",
                     style: mainTheme()
                         .textTheme
-                        .headline2
+                        .headline2!
                         .copyWith(color: Colors.white)),
               ],
             )),
@@ -46,6 +46,7 @@ class _DevicePageState extends State<DevicePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             FloatingActionButton(
+              heroTag: UniqueKey() ,
               onPressed: () =>
                   {Navigator.pushNamed(context, Routes.DEVICE_SEARCH_PAGE)},
               child: Icon(Icons.search),

@@ -7,7 +7,7 @@ class MockDevice {
   final Random rnd = Random();
   final HashMap<String,Function (int)> listeners  = HashMap();
   final maxInt = 1024;
-  Timer timer ;
+  late final Timer timer ;
 
   setup(){
     //Timer.periodic(Duration(milliseconds: 100),(Timer t) =>listeners.values.forEach((list) => list(rnd.nextInt(maxInt)) ));

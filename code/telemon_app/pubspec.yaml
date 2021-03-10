@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -30,19 +30,22 @@ dependencies:
   # Internationalization support.
   flutter_localizations:
     sdk: flutter
-  intl: ^0.16.1
+  intl: '>=0.15.2 <=0.17.0'
 
   #Charts
-  charts_flutter: ^0.9.0
-  fl_chart: ^0.12.2
+  charts_flutter: ^0.10.0
   path_provider: ^1.6.27
-  provider: ^3.0.0
+  provider: ^5.0.0
+
+  #Filters
+  scidart: ^0.0.1-dev.12
 
   #bluetooth - ble
   flutter_blue: ^0.7.3
   #bluetooth - classic
   flutter_bluetooth_serial: ^0.2.2
   bluez: ^0.1.1
+  dbus: ^0.2.1
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:scidart/numdart.dart';
+import 'package:scidart/scidart.dart';
+import 'package:telemon_app/src/data/model/device/filters.dart';
 import 'package:telemon_app/src/data/model/device/sensors_codes.dart';
 
 abstract class ISensor {
   TechnicalInfo technicalInfo;
   SensorDataInfo sensorDataInfo;
+  Filter filterInfo;
 
   /// Returns the code of the sensors that is being used
   SensorsCodes getSensorCode();
@@ -16,32 +20,38 @@ abstract class ISensor {
 
   /// This method is to be implemented by each sensor, and each of them will implement
   /// its own function to filter the results to a more suitable end graph
-  @protected
-  double applyFilter(double normalizedValue);
+  ///
 
   /// Only public method to be used, since it applies the transfer function, and then
   /// it applies the filters, and returns the best possible result for this kind of
   /// sensor
-  double normalizeAndFilterValue(double valueSampled) => applyFilter(applyTransferFunction(valueSampled));
+  double normalizeAndFilterValue(Iterable<double> oldValues,double valueSampled) =>
 
-  ISensor(this.technicalInfo, this.sensorDataInfo);
+        lfilter(this.filterInfo.filterCoefficients,
+          Array([1.0]),
+          Array([...oldValues.skip(oldValues.length<=filterInfo.numTaps? 0 : oldValues.length-filterInfo.numTaps ).toList(),
+            applyTransferFunction(valueSampled)]))
+        [oldValues.length<=filterInfo.numTaps? 0 : filterInfo.numTaps];//To get only the last number
+
+  ISensor(this.technicalInfo, this.sensorDataInfo, this.filterInfo);
 }
 
+
 class SensorDataInfo {
-  double maxValue;
-  double minValue;
+  final double maxValue;
+  late final double minValue;
   double sensorGain;
   int channelBits;
 
   SensorDataInfo(
-      {this.maxValue, this.minValue, this.sensorGain, this.channelBits = 10});
+      {required this.maxValue, required this.minValue, required this.sensorGain,this.channelBits = 10});
 }
 
 class TechnicalInfo {
-  double vcc;
-  String measurementUnit;
+  final double vcc;
+  final String measurementUnit;
 
-  TechnicalInfo({this.vcc, this.measurementUnit});
+  TechnicalInfo({this.vcc=3.3, required this.measurementUnit});
 }
 
 class SensorValue {

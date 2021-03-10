@@ -17,7 +17,9 @@ import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 import 'general/theme/theme.dart';
+// @dart=2.9
 
+//TODO must run with argument : --no-sound-null-safety to work
 
 void main() {
   runApp(MultiProvider(

@@ -24,7 +24,7 @@ class MenuView extends StatefulWidget {
 
 class _MenuViewState extends State<MenuView> {
   int currentMenuIndex = 0;
-  List historic = List();
+  List historic = [];
 
   void _handleTap(int newIndex) {
     setState(() {
@@ -51,12 +51,11 @@ class _MenuViewState extends State<MenuView> {
           });
           return Future.value(true);
         },
+
         child: Scaffold(
-            appBar: BackTitleAppbar(
-                    menuWidgetOptions.elementAt(currentMenuIndex).title)
-                .build(context),
+            appBar: BackTitleAppbar(menuWidgetOptions.elementAt(currentMenuIndex).title),
             bottomNavigationBar:
-                BottomNavBar(index: currentMenuIndex, handleIndex: _handleTap),
+                BottomNavBar(index: currentMenuIndex, handleIndex: _handleTap, key: Key(this.hashCode.toString())),
             body: new Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               color: ThemeColors.theme.PRIMARY_WHITE,

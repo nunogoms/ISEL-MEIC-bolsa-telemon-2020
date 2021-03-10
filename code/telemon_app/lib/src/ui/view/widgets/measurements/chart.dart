@@ -1,50 +1,74 @@
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/cupertino.dart';
 import 'package:telemon_app/src/data/model/device/isensor.dart';
-import 'package:telemon_app/src/data/model/exams/exam.dart';
+import 'package:telemon_app/src/data/model/measurements/measurement.dart';
+import 'package:telemon_app/src/ui/view/widgets/measurements/utils/GraphUnits.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
-class Chart extends StatelessWidget {
-  final Exam exam;
+class Chart extends StatefulWidget {
+  final Measurement measurement;
   final ExamSettings examSettings;
-  final List<SensorValue> _data = List<SensorValue>();
+  final List<SensorValue> _data;
 
-  Chart(this.exam, this.examSettings) {
-    exam.getVisualValues().forEach((element) => _data.add(element));
+  Chart(this.measurement, this.examSettings) : _data = measurement.getVisualValues();
+
+  @override
+  _ChartState createState() => _ChartState();
+}
+
+class _ChartState extends State<Chart> {
+
+  List<charts.Series<SensorValue, int>> _createData() {
+    return [//TODO get a thinner line, more on par with medical graphs
+      charts.Series<SensorValue, int>(
+        id: 'Values_chart',
+        colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
+        domainFn: (SensorValue sensorValue, __) => widget._data.indexOf(sensorValue),
+        domainLowerBoundFn: (_, __) => 0,//Time starts at 0
+        domainUpperBoundFn: (_, __) => widget.examSettings.secondsToShow * 1000, //TODO better way of converting to milliseconds
+        measureFn: (SensorValue sensorValue, _) => sensorValue.value,
+        measureUpperBoundFn: (__, _) => widget.measurement.sensor.sensorDataInfo.maxValue,
+        measureLowerBoundFn: (__, _) => widget.measurement.sensor.sensorDataInfo.minValue,
+        data: widget._data,
+      )
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: LineChart(LineChartData(
-      lineBarsData: [getDataGraph()],
-      maxY: exam.sensor.sensorDataInfo.maxValue,
-      minY: exam.sensor.sensorDataInfo.minValue,
-      minX: 0,//Minimum time
-      maxX: examSettings.secondsToShow.toDouble(),
-      clipData: FlClipData.horizontal(),
-      titlesData: FlTitlesData(bottomTitles: SideTitles(showTitles: false)),
-      //TODO adicionar tempos
-      axisTitleData: FlAxisTitleData(
-        leftTitle: AxisTitle(
-            showTitle: true,
-            titleText: exam.sensor.technicalInfo.measurementUnit),
-        bottomTitle:
-            AxisTitle(showTitle: true, titleText: exam.independentUnit),
-      ),
-    )));
+    return new charts.LineChart(_createData(),
+        behaviors: [
+          charts.ChartTitle(GraphUnits.independentUnit,
+              behaviorPosition: charts.BehaviorPosition.bottom),
+          charts.ChartTitle(widget.measurement.sensor.technicalInfo.measurementUnit,
+              behaviorPosition: charts.BehaviorPosition.start),
+        ],
+        defaultRenderer: charts.LineRendererConfig(strokeWidthPx: GraphSettings.lineWidth),
+        animate: false,
+        primaryMeasureAxis: charts.NumericAxisSpec(
+          //Line below removes the grey lines and adds a vertical on the Y axis
+          //renderSpec: new charts.SmallTickRendererSpec(),
+          tickProviderSpec: charts.StaticNumericTickProviderSpec(
+              getYValuesList()),
+        ),
+        domainAxis: charts.NumericAxisSpec(
+          tickProviderSpec: charts.StaticNumericTickProviderSpec(List.generate(
+              GraphSettings.xAxisTicks,
+              (index) => new charts.TickSpec((widget.examSettings.secondsToShow * 1000 / //TODO better way of converting to milliseconds
+                      (GraphSettings.yAxisTicks - 1)) *
+                  index))),
+        ));
   }
 
-  LineChartBarData getDataGraph() {
-    if (_data.isEmpty) _data.add(SensorValue(0.0, 0.0));
-
-    return LineChartBarData(
-      spots:
-          _data.map((e) => FlSpot(e.timeInMillis.toDouble(), e.value)).toList(),
-      dotData: FlDotData(
-        show: true,
-      ),
-      barWidth: 0.5,
-    );
+  getYValuesList(){
+    var list = List<charts.TickSpec<double>>.generate( //Operation to generate the required values
+        GraphSettings.yAxisTicks,
+            (index) => new charts.TickSpec(
+            widget.measurement.sensor.sensorDataInfo.minValue +
+                (((widget.measurement.sensor.sensorDataInfo.minValue.abs() +
+                    widget.measurement.sensor.sensorDataInfo.maxValue) /
+                    (GraphSettings.yAxisTicks - 1)) *
+                    index)));
+    return list;
   }
 }

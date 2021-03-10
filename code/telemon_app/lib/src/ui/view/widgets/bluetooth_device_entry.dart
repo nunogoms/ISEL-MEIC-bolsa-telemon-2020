@@ -46,7 +46,7 @@ class BluetoothDeviceEntry extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.all(0),
                               child: FloatingActionButton.extended(
-                                heroTag: device.macId.toString()+"heroId",
+                                heroTag: device.macId.toString()+device.blType.toString(),
                                 onPressed: () => onConnectFunction(context),
                                 label: Text(l10n(context).connect),
                               ))

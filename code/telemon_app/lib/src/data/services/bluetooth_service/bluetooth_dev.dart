@@ -1,7 +1,10 @@
+import 'package:bitalino/bitalino.dart';
+
 class BluetoothDev {
   final String name;
-  String uuid;
+  //final String uuid;
   final String macId;
+  final CommunicationType blType;
 
-  BluetoothDev(this.name, this.macId);
+  BluetoothDev({this.name="", required this.macId,required this.blType});
 }

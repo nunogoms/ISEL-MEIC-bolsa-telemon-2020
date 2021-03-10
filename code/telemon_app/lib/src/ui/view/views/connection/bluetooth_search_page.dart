@@ -14,18 +14,18 @@ class BluetoothSearch extends StatefulWidget {
 }
 
 class _BluetoothSearchState extends State<BluetoothSearch> {
-  List<BluetoothDev> foundDevices = List();
-  SnackBar snackBar;
-  DeviceViewModel deviceViewModel;
+  final List<BluetoothDev> foundDevices = [];
+  late final SnackBar snackBar;
+  DeviceViewModel? deviceViewModel;
 
   @override
   Widget build(BuildContext context) {
-    deviceViewModel = Provider.of<DeviceViewModel>(context);
+    if(deviceViewModel == null) deviceViewModel = Provider.of<DeviceViewModel>(context);
 
-    _searchDevices(deviceViewModel);
+    _searchDevices(deviceViewModel!);
 
     return Scaffold(
-        appBar: BackTitleAppbar(l10n(context).deviceSearch).build(context),
+        appBar: BackTitleAppbar(l10n(context).deviceSearch),
         body: Container(
           child: ListView(
             children: [
@@ -33,7 +33,7 @@ class _BluetoothSearchState extends State<BluetoothSearch> {
                   .map((scanResult) => BluetoothDeviceEntry(
                       scanResult,
                       (BuildContext newCtx) => _onConnectListener(
-                          scanResult, deviceViewModel, newCtx)))
+                          scanResult, deviceViewModel!, newCtx)))
                   .toList()
             ],
           ),
@@ -42,13 +42,13 @@ class _BluetoothSearchState extends State<BluetoothSearch> {
 
   @override
   Future<void> dispose() async {
-    await deviceViewModel.stopScanning();
     super.dispose();
+    await deviceViewModel!.stopScanning();
   }
 
   _searchDevices(DeviceViewModel deviceViewModel) {
     if (foundDevices.isEmpty) {
-      deviceViewModel.scanDevices((BluetoothDev scanResult ) {
+      deviceViewModel.scanDevices((BluetoothDev scanResult) {
         setState(() => foundDevices.add(scanResult));
       });
     }
@@ -58,18 +58,34 @@ class _BluetoothSearchState extends State<BluetoothSearch> {
   //TODO arranjar o uuid noutro lado maybe ? IDK vou aqui chegar com Mac though
   _onConnectListener(BluetoothDev scanResult, DeviceViewModel deviceViewModel,
       BuildContext context) async {
-    List<BluetoothService> services = List();
-    /*BluetoothDevice device = scanResult;
 
     try {
-      snackBar = SnackBar(content:Text( l10n(context).tryingConnect));
+      snackBar = SnackBar(content: Text(l10n(context).tryingConnect));
+      Scaffold.of(context).showSnackBar(snackBar);
+
+      await deviceViewModel.connectDevice(scanResult);
+      Navigator.pop(context);
+    } on Exception catch (e) {
+      snackBar = SnackBar(content: Text(l10n(context).connectionError));
+      print('Reason : ' + e.toString());
+    } catch (error) {
+      snackBar = SnackBar(content: Text(l10n(context).connectionError));
+    } finally {
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+
+    //TODO add search for uuid in the case of being BLE conection, also passar a
+    // logica disso para o controller
+
+    /*try {
+      snackBar = SnackBar(content: Text(l10n(context).tryingConnect));
       Scaffold.of(context).showSnackBar(snackBar);
 
       services = await device
           .connect(timeout: Duration(seconds: 5))
           .then((_) async => await device.discoverServices())
-          .catchError(
-              (_) => snackBar = SnackBar(content: Text( l10n(context).connectionError)));
+          .catchError((_) => snackBar =
+              SnackBar(content: Text(l10n(context).connectionError)));
       await deviceViewModel.connectDevice(
           macAddress: device.id.toString(), uuid: services[0].uuid.toString());
       Navigator.pop(context);
