@@ -19,13 +19,14 @@ class _SettingsPageState extends State<SettingsPage> {
     SettingsViewModel settingsViewModel =
         Provider.of<SettingsViewModel>(this.context);
 
+    //TODO passar isto p geral
     return Container(
         child: Column(children: <Widget>[
       Row(
         children: [
           Text(l10n(context).frequency.toString().addTwoDots),
           DropdownButton<String>(
-            value: settingsViewModel.examSettings.sampleFrequency.toString(),
+            value: settingsViewModel.frequencySetting.currValue.toString(),
             icon: Icon(Icons.arrow_drop_down_circle_outlined),
             //iconSize: 24,
             elevation: 16,
@@ -34,9 +35,8 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 2,
               color: Colors.deepPurpleAccent,
             ),
-            onChanged: settingsViewModel.setSampleFrequency,
-            items: settingsViewModel
-                .getPossibleFrequencies()
+            onChanged: (String? s){settingsViewModel.frequencySetting.setNewValue(s!); settingsViewModel.updateValues();},
+            items: settingsViewModel.frequencySetting.getPossibleValues()
                 .map<DropdownMenuItem<String>>((Frequency value) {
               return DropdownMenuItem<String>(
                 value: value.toString(),

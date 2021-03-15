@@ -1,13 +1,11 @@
 import 'dart:math';
 
-import 'package:scidart/src/numdart/arrays_base/array.dart';
+import 'package:telemon_app/src/data/model/device/sensors/isensor.dart';
+import 'package:telemon_app/src/data/model/device/sensors/utils/filters.dart';
 
-import '../filters.dart';
-import '../isensor.dart';
-import '../sensors_codes.dart';
 
-class EmgSensorData extends ISensor {
-  EmgSensorData()
+class EmgSensor extends ISensor {
+  EmgSensor()
       : super(
             TechnicalInfo(vcc: 3.3, measurementUnit: "mV"),
             SensorDataInfo(maxValue: 1.7, minValue: -1.7, sensorGain: 1009),
@@ -17,11 +15,6 @@ class EmgSensorData extends ISensor {
                 highCutOff: 480));
 
   int differenceToUnit = 1000;
-
-  @override
-  SensorsCodes getSensorCode() {
-    return SensorsCodes.EMG;
-  }
 
   @override
   double applyTransferFunction(double valueSampled) {

@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
-import 'package:telemon_app/src/data/model/device/isensor.dart';
+import 'package:telemon_app/src/data/model/device/configurations/device_channels.dart';
+import 'package:telemon_app/src/data/model/device/configurations/sensor_module.dart';
 import 'package:telemon_app/src/data/model/measurements/exam.dart';
 import 'package:telemon_app/src/data/model/measurements/measurement.dart';
 import 'package:telemon_app/src/data/services/device_service/bitalino/bitalino_controller.dart';
@@ -10,8 +13,8 @@ import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 enum ExamState { INIT, MEASURING, FINISHED }
 
-class ExamViewModel extends ChangeNotifier {
-  final ISensor sensor;
+class MeasurementViewModel extends ChangeNotifier {
+  final SensorModule sensorModule;
   final List<Exam> exams = [];
   final ExamFileHandler fileHandler = new ExamFileHandler();
   ExamState examState = ExamState.INIT;
@@ -21,7 +24,6 @@ class ExamViewModel extends ChangeNotifier {
   //TODO alterar isto too
   static IDeviceController _deviceController = BitalinoController();
 
-
   @override
   void dispose() async {
     await _deviceController.stopAcquisition();
@@ -29,16 +31,16 @@ class ExamViewModel extends ChangeNotifier {
     super.dispose();
   }
 
-  ExamViewModel(this.sensor, this.examSettings)
+  MeasurementViewModel(this.sensorModule, this.examSettings)
       : measurement = Measurement(
-            sensor: sensor,
-            frequency: examSettings.sampleFrequency,
+            sensor: sensorModule.sensor,
+            frequency: examSettings.frequency, //TODO change frequency place
             secondsToShow: examSettings.secondsToShow) {
     try {
-      _deviceController.startAcquisition(BitalinoObject(
-          sensor.getSensorCode(), examSettings.sampleFrequency, (frame) {
-        bool addedSuccessfully = measurement
-            .addValue(frame.analog[sensor.getSensorCode().index].toDouble());
+      _deviceController.startAcquisition(
+          BitalinoObject(sensorModule.name, examSettings.frequency, (frame) {
+        bool addedSuccessfully = measurement.addValue(
+            frame.analog[sensorModule.deviceChannel.value].toDouble());
         if (!addedSuccessfully) {
           stopMeasuring();
         }
@@ -92,7 +94,7 @@ class ExamViewModel extends ChangeNotifier {
     examState = ExamState.INIT;
     Exam currExam = exams.last;
 
-    fileHandler.setFilename(currExam.sensor.getSensorCode().toString() +
+    fileHandler.setFilename("currExam.sensor.getSensorCode().toString()" +
         "_" +
         currExam.startingDatetime.toString());
     fileHandler.writeFile(currExam);

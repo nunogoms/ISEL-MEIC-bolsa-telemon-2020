@@ -1,28 +1,19 @@
 import 'dart:math';
 
 import 'package:scidart/numdart.dart';
-import 'package:scidart/scidart.dart';
-import 'package:telemon_app/src/data/model/device/filters.dart';
+import 'package:telemon_app/src/data/model/device/sensors/isensor.dart';
+import 'package:telemon_app/src/data/model/device/sensors/utils/filters.dart';
 
-import '../isensor.dart';
-import '../sensors_codes.dart';
-
-class EcgSensorData extends ISensor {
-  EcgSensorData()
+class EcgSensor extends ISensor {
+  EcgSensor()
       : super(
             TechnicalInfo(vcc: 3.3, measurementUnit: "mV"),
             SensorDataInfo(maxValue: 1.5, minValue: -1.5, sensorGain: 1100),
-            BandPassFilter(
+            LowPassFilter(
                 sampleFrequency: 1000, //TODO change this to be dynamic
-                lowCutOff: 0.5,
                 highCutOff: 40));
 
   int differenceToMilliVolt = 1000;
-
-  @override
-  SensorsCodes getSensorCode() {
-    return SensorsCodes.ECG;
-  }
 
   @override
   double applyTransferFunction(double valueSampled) {

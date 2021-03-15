@@ -1,9 +1,10 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
-import 'package:telemon_app/src/data/model/device/isensor.dart';
+import 'package:telemon_app/src/data/model/device/sensors/isensor.dart';
 import 'package:telemon_app/src/data/model/measurements/measurement.dart';
-import 'package:telemon_app/src/ui/view/widgets/measurements/utils/GraphUnits.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
+
+import 'graph_preferences.dart';
 
 class Chart extends StatefulWidget {
   final Measurement measurement;

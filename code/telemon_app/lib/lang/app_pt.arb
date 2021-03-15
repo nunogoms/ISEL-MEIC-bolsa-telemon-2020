@@ -4,6 +4,7 @@
   "emgMeasurement": "Electromiograma",
   "edaMeasurement": "Actividade Electrodérmica",
   "accMeasurement": "Aceleração",
+  "eegMeasurement": "Electroencefalograma",
   "connectedDevice": "Dispositivo conectado",
   "summary": "Resumo",
   "measurements": "Medições",
@@ -25,7 +26,7 @@
   "unknownName": "(Nome Indisponível)",
   "connect": "Ligar",
   "tryingConnect": "Tentanto conectar.",
-  "connectionError":"Houve um erro nesta conexão.",
+  "connectionError":"Houve um erro nesta conexão. Por favor tente outra vez.",
 
 
   "@weightMeasurement": {
@@ -42,6 +43,9 @@
   },
   "@accMeasurement": {
     "description": "The title that appears in measurements referring to starting a acceleration analysis"
+  },
+  "@eecMeasurement": {
+    "description": "The title that appears in measurements referring to starting an electroencephalogram"
   },
   "@connectedDevice": {
     "description": "Device connected to the phone"

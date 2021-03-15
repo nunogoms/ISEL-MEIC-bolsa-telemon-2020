@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_dev.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/general/extension_methods/string_extension.dart';
@@ -46,7 +45,8 @@ class BluetoothDeviceEntry extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.all(0),
                               child: FloatingActionButton.extended(
-                                heroTag: device.macId.toString()+device.blType.toString(),
+                                heroTag: device.macId.toString() +
+                                    device.blType.toString(),
                                 onPressed: () => onConnectFunction(context),
                                 label: Text(l10n(context).connect),
                               ))

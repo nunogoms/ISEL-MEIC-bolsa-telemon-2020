@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:telemon_app/src/data/model/device/isensor.dart';
+import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/work/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/data/model/device/sensors/isensor.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
-import 'package:telemon_app/src/ui/view/widgets/measurements/chart.dart';
+import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/work/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/measurements/measuring/utils/chart.dart';
 import 'package:telemon_app/src/ui/viewmodels/measurement_viewmodel.dart';
 
-class SensorGraph extends StatefulWidget {
+class SensorGraph <ISensor> extends StatefulWidget {
   final ISensor sensorDevice;
 
   const SensorGraph({required Key key, required this.sensorDevice}) : super(key: key);
@@ -17,7 +17,7 @@ class SensorGraph extends StatefulWidget {
 class _SensorGraph extends State<SensorGraph> {
   GlobalKey<ScaffoldState> _sensorKey = GlobalKey<ScaffoldState>();
 
-  Widget _getIconText(ExamViewModel examVM) {
+  Widget _getIconText(MeasurementViewModel examVM) {
     Widget? toRet;
     switch (examVM.examState) {
       case ExamState.INIT:
@@ -34,7 +34,7 @@ class _SensorGraph extends State<SensorGraph> {
 
   @override
   Widget build(BuildContext context) {
-    ExamViewModel examVM = Provider.of<ExamViewModel>(this.context);
+    MeasurementViewModel examVM = Provider.of<MeasurementViewModel>(this.context);
 
     return Column(
       key: _sensorKey,

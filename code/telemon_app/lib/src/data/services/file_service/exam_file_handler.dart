@@ -9,7 +9,7 @@ class ExamFileHandler extends FileHandler<Exam> {
   void writeFile(Exam exam) async {
     final file = await localFile;
     return await file
-        .writeAsString("Exam Type : ${exam.sensor.getSensorCode()}\n",
+        .writeAsString("Exam Type : ${"//TODO"}\n",
             mode: FileMode.append)
         .then((_) => file.writeAsString(
             "Start Date : ${exam.startingDatetime.millisecondsSinceEpoch}\n",

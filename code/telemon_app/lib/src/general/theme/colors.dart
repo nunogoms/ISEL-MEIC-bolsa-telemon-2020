@@ -42,7 +42,7 @@ class MiscColors {
 
   final Color MEASUREMENTS_SCALE = Color(0xffB19CD9);
   final Color MEASUREMENTS_ECG = Color(0xffF34D3E);
-  final Color MEASUREMENTS_EEC = Color(0xffFFB347);
+  final Color MEASUREMENTS_EEG = Color(0xffFFB347);
   final Color MEASUREMENTS_EMG = Color(0xff77DD77);
   final Color MEASUREMENTS_EDG = Color(0xff88AED0);
   final Color MEASUREMENTS_OTHER = Color(0xffFDFD66); //todo CHANGE THIS COLOR

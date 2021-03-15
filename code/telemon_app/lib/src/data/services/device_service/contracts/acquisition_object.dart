@@ -1,7 +1,7 @@
-import 'package:telemon_app/src/data/model/device/sensors_codes.dart';
+import 'package:telemon_app/src/data/model/device/sensors/sensor_name.dart';
 
-abstract class AcquisitionObject{
-  SensorsCodes sensor;
+abstract class AcquisitionObject {
+  SensorName sensor;
 
   AcquisitionObject(this.sensor);
 }

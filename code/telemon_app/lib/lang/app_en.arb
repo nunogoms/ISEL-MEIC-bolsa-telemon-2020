@@ -4,6 +4,7 @@
   "emgMeasurement": "Electromyogram",
   "edaMeasurement": "Electrodermal Activity",
   "accMeasurement": "Acceleration",
+  "eegMeasurement": "Electroencephalogram",
   "connectedDevice": "Connected Device",
   "summary": "Summary",
   "measurements": "Measurements",
@@ -23,5 +24,7 @@
   "name": "Name",
   "mac": "MAC",
   "unknownName": "(Unknown Name)",
-  "connect": "Connect"
+  "connect": "Connect",
+  "tryingConnect": "Trying to connect.",
+  "connectionError":"This connection generated an error, please try again."
 }

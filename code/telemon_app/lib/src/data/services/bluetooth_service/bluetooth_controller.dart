@@ -1,6 +1,4 @@
 import 'package:bitalino/bitalino.dart';
-import 'package:bluez/bluez.dart';
-import 'package:dbus/dbus.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_dev.dart';
@@ -9,7 +7,6 @@ class BluetoothController {
   final FlutterBlue _flutterBlue = FlutterBlue.instance;
   final FlutterBluetoothSerial _flutterBluetoothClassic =
       FlutterBluetoothSerial.instance;
-  final BlueZClient _blueZClient = BlueZClient(DBusClient.system()); //TODO try again and work or scrap
 
   Future<void> scanDevices(
       int timeoutInSeconds, Function(BluetoothDev) valueCB) async {

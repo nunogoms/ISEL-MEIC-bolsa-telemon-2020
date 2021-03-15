@@ -1,5 +1,6 @@
 import 'package:bitalino/bitalino.dart';
-import 'package:telemon_app/src/data/model/device/isensor.dart';
+import 'package:telemon_app/src/data/model/device/sensors/isensor.dart';
+
 import 'package:telemon_app/src/data/utils/units.dart';
 
 import 'exam.dart';

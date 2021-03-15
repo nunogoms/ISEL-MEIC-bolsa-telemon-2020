@@ -1,5 +1,5 @@
 import 'package:bitalino/bitalino.dart';
-import 'package:telemon_app/src/data/model/device/isensor.dart';
+import 'package:telemon_app/src/data/model/device/sensors/isensor.dart';
 
 class Exam {
   final ISensor sensor;
@@ -11,21 +11,23 @@ class Exam {
   late final DateTime startingDatetime;
   late final int currentTime;
 
-
   final List<SensorValue> _fullExamValues = [];
 
-  Exam({required this.duration,required this.sensor,required this.frequency, this.independentUnit = "ms"}){
+  Exam(
+      {required this.duration,
+      required this.sensor,
+      required this.frequency,
+      this.independentUnit = "ms"}) {
     maxSamples = serializeFrequency(frequency) * duration;
-    startingDatetime= DateTime.now();
+    startingDatetime = DateTime.now();
   }
-
 
   List<SensorValue> getAllValues() {
     return _fullExamValues;
   }
 
   bool addValue(SensorValue sensorValue) {
-    if(_fullExamValues.length >= maxSamples)return false;
+    if (_fullExamValues.length >= maxSamples) return false;
     _fullExamValues.add(sensorValue);
     return true;
   }
