@@ -8,7 +8,7 @@ import '../sensor_module.dart';
 
 class BitalinoWearable extends IDevice {
   @override
-  String name = "IselBitalino";
+  String name = "BitalinoWearable";
 
   @override
   List<SensorModule> sensors = [

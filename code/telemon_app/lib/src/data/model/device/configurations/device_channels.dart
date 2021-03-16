@@ -1,3 +1,6 @@
+
+///The multiple channels allowed on a single module, im not entirely sure the
+///channels from PWM are those, they might use a different array, and maybe restart
 enum DeviceChannel { A1, A2, A3, A4, A5,A6, PWM, O1, O2 }
 
 extension ChannelNumber on DeviceChannel {

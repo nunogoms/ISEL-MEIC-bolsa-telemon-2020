@@ -21,10 +21,6 @@ abstract class ISensor {
   @protected
   double applyTransferFunction(double valueSampled);
 
-  /// This method is to be implemented by each sensor, and each of them will implement
-  /// its own function to filter the results to a more suitable end graph
-  ///
-
   /// Only public method to be used, since it applies the transfer function, and then
   /// it applies the filters, and returns the best possible result for this kind of
   /// sensor
@@ -36,6 +32,8 @@ abstract class ISensor {
       var realFilterInfo = filterInfo!;
       return lfilter(
           realFilterInfo.filterCoefficients,
+          /// I dont really know why it must be 1.0, but its what all the examples
+          /// shown, and it works well
           Array([1.0]),
           Array([
             ...oldValues
@@ -51,6 +49,8 @@ abstract class ISensor {
   }
 }
 
+///The information about the data retrieved by the sensor, used to filter, and show
+///the graphs accordingly
 class SensorDataInfo {
   final double maxValue;
   late final double minValue;
@@ -64,6 +64,8 @@ class SensorDataInfo {
       this.channelBits = 10});
 }
 
+
+///Technical information related to each sensor, only related to its specifications
 class TechnicalInfo {
   final double vcc;
   final String measurementUnit;
@@ -71,6 +73,7 @@ class TechnicalInfo {
   TechnicalInfo({this.vcc = 3.3, required this.measurementUnit});
 }
 
+/// The SensorDTO that will be used to pass the values achieved by it
 class SensorValue {
   final num timeInMillis;
   final double value;
