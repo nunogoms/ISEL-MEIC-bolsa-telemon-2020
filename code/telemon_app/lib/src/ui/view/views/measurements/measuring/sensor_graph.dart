@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/work/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/data/model/device/sensors/isensor.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/work/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/measurements/measuring/utils/chart.dart';
+
 import 'package:telemon_app/src/ui/viewmodels/measurement_viewmodel.dart';
+
+import 'chart/chart.dart';
 
 class SensorGraph <ISensor> extends StatefulWidget {
   final ISensor sensorDevice;

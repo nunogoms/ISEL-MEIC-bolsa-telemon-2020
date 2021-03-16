@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bitalino/bitalino.dart';
 import 'package:scidart/numdart.dart';
 import 'package:telemon_app/src/data/model/device/sensors/isensor.dart';
 import 'package:telemon_app/src/data/model/device/sensors/utils/filters.dart';
@@ -7,11 +8,13 @@ import 'package:telemon_app/src/data/model/device/sensors/utils/filters.dart';
 class EcgSensor extends ISensor {
   EcgSensor()
       : super(
-            TechnicalInfo(vcc: 3.3, measurementUnit: "mV"),
-            SensorDataInfo(maxValue: 1.5, minValue: -1.5, sensorGain: 1100),
-            LowPassFilter(
-                sampleFrequency: 1000, //TODO change this to be dynamic
-                highCutOff: 40));
+            preferredFrequency: Frequency.HZ1000,
+            technicalInfo: TechnicalInfo(vcc: 3.3, measurementUnit: "mV"),
+            sensorDataInfo: SensorDataInfo(
+                maxValue: 1.5, minValue: -1.5, sensorGain: 1100)) {
+    this.filterInfo =
+        LowPassFilter(sampleFrequency: this.preferredFrequency, highCutOff: 40);
+  }
 
   int differenceToMilliVolt = 1000;
 

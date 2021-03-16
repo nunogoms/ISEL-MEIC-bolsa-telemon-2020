@@ -25,7 +25,7 @@ class Measurement {
       required this.secondsToShow,
       this.independentUnit = "ms"}) {
     maxSamplesToShow =
-        ((secondsToShow) * serializeFrequency(frequency)).toInt();
+        ((secondsToShow) * serializeFrequency(sensor.preferredFrequency)).toInt();
   }
 
   List<SensorValue> getVisualValues() {

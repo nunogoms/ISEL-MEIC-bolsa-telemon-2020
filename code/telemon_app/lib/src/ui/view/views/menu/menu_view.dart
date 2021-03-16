@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/general/theme/colors.dart';
+import 'package:telemon_app/src/ui/view/views/measurements/measurements_list/measurements_page.dart';
+import 'package:telemon_app/src/ui/view/views/settings/settings_page.dart';
 import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
-import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/work/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/widgets/appbars/bottom_nav_bar.dart';
-import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
+import 'package:telemon_app/src/ui/view/widgets/appbars/bottom_nav_bar.dart';
+
 
 import 'fragments/device_page.dart';
-import '../measurements/measurements_list/measurements_page.dart';
-import '../settings/settings_page.dart';
 import 'fragments/wip_page.dart';
 
 class MenuObject {

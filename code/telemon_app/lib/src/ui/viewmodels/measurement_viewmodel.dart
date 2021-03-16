@@ -34,17 +34,23 @@ class MeasurementViewModel extends ChangeNotifier {
   MeasurementViewModel(this.sensorModule, this.examSettings)
       : measurement = Measurement(
             sensor: sensorModule.sensor,
-            frequency: examSettings.frequency, //TODO change frequency place
+            frequency: sensorModule.sensor.preferredFrequency,
+            //TODO add a change in case of being present a new frequency in settings
             secondsToShow: examSettings.secondsToShow) {
     try {
       _deviceController.startAcquisition(
           BitalinoObject(sensorModule.name, examSettings.frequency, (frame) {
-        bool addedSuccessfully = measurement.addValue(
-            frame.analog[sensorModule.deviceChannel.value].toDouble());
-        if (!addedSuccessfully) {
-          stopMeasuring();
+        try {
+          bool addedSuccessfully = measurement.addValue(
+              frame.analog[sensorModule.deviceChannel.value].toDouble());
+          if (!addedSuccessfully) {
+            stopMeasuring();
+          }
+          notifyListeners();
+        } on Exception catch (Exception) {
+          print(Exception); //TODO deal wit exceptions
+          dispose();
         }
-        notifyListeners();
       }));
     } on Exception catch (Exception) {
       print(Exception); //TODO deal wit exceptions

@@ -30,4 +30,7 @@ Map<SensorName, MeasurementVisualInfo> measurementsVisualInfoMap = {
   SensorName.EDA: MeasurementVisualInfo(
       (context) => l10n(context).edaMeasurement,
       ThemeColors.misc.MEASUREMENTS_OTHER),
+  SensorName.LUX: MeasurementVisualInfo(
+          (context) => l10n(context).luxMeasurement,
+      ThemeColors.misc.MEASUREMENTS_OTHER),
 };

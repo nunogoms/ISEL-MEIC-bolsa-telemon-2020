@@ -5,6 +5,7 @@
   "edaMeasurement": "Electrodermal Activity",
   "accMeasurement": "Acceleration",
   "eegMeasurement": "Electroencephalogram",
+  "luxMeasurement": "Light Intensity",
   "connectedDevice": "Connected Device",
   "summary": "Summary",
   "measurements": "Measurements",

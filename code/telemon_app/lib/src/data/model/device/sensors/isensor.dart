@@ -1,12 +1,19 @@
+import 'package:bitalino/bitalino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:scidart/numdart.dart';
 import 'package:scidart/scidart.dart';
 import 'package:telemon_app/src/data/model/device/sensors/utils/filters.dart';
 
 abstract class ISensor {
-  TechnicalInfo technicalInfo;
-  SensorDataInfo sensorDataInfo;
-  Filter filterInfo;
+  final Frequency preferredFrequency;
+  final TechnicalInfo technicalInfo;
+  final SensorDataInfo sensorDataInfo;
+
+  /// It needs to be setup here so the coefficients are calculated only once
+  /// since they have a lot of overhead to be calculated,
+  late final Filter? filterInfo; //
+
+  ISensor({required this.preferredFrequency,required this.technicalInfo, required this.sensorDataInfo});
 
   /// In this method, it is implemented the transfer function, so the values
   /// come in the real unit, instead of [0..1024] units (not specified) that come
@@ -22,20 +29,26 @@ abstract class ISensor {
   /// it applies the filters, and returns the best possible result for this kind of
   /// sensor
   double normalizeAndFilterValue(
-          Iterable<double> oldValues, double valueSampled) =>
-      lfilter(
-              this.filterInfo.filterCoefficients,
-              Array([1.0]),
-              Array([
-                ...oldValues
-                    .skip(oldValues.length > 0
-                        ? oldValues.length > filterInfo.numTaps ? oldValues.length - filterInfo.numTaps : oldValues.length
-                        : 0)
-                    .toList(),
-                applyTransferFunction(valueSampled)
-              ])).last; //To get only the last number
-
-  ISensor(this.technicalInfo, this.sensorDataInfo, this.filterInfo);
+      Iterable<double> oldValues, double valueSampled) {
+    if (this.filterInfo == null) {
+      return applyTransferFunction(valueSampled);
+    } else {
+      var realFilterInfo = filterInfo!;
+      return lfilter(
+          realFilterInfo.filterCoefficients,
+          Array([1.0]),
+          Array([
+            ...oldValues
+                .skip(oldValues.length > 0
+                    ? oldValues.length > realFilterInfo.numTaps
+                        ? oldValues.length - realFilterInfo.numTaps
+                        : oldValues.length
+                    : 0)
+                .toList(),
+            applyTransferFunction(valueSampled)
+          ])).last; //To get only the last number
+    }
+  }
 }
 
 class SensorDataInfo {
@@ -47,7 +60,7 @@ class SensorDataInfo {
   SensorDataInfo(
       {required this.maxValue,
       required this.minValue,
-      required this.sensorGain,
+      this.sensorGain = 0,
       this.channelBits = 10});
 }
 

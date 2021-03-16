@@ -5,6 +5,7 @@
   "edaMeasurement": "Actividade Electrodérmica",
   "accMeasurement": "Aceleração",
   "eegMeasurement": "Electroencefalograma",
+  "luxMeasurement": "Intensidade Luminosa",
   "connectedDevice": "Dispositivo conectado",
   "summary": "Resumo",
   "measurements": "Medições",
@@ -46,6 +47,9 @@
   },
   "@eecMeasurement": {
     "description": "The title that appears in measurements referring to starting an electroencephalogram"
+  },
+  "@luxMeasurement": {
+    "description": "The title that appears in measurements referring to starting a light intensity measurement"
   },
   "@connectedDevice": {
     "description": "Device connected to the phone"
