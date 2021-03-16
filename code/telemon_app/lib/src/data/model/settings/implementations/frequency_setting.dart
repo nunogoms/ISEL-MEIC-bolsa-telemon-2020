@@ -9,6 +9,11 @@ class FrequencySetting extends ISetting<Frequency>{
 
   @override
   List<Frequency> getPossibleValues() {
-    return [Frequency.HZ1, Frequency.HZ10, Frequency.HZ100, Frequency.HZ1000];
+    return Frequency.values;
+  }
+
+  @override
+  String getCurrValueAsString() {
+    return currValue.toString();
   }
 }

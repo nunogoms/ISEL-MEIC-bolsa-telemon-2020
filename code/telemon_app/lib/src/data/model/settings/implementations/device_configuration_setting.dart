@@ -20,4 +20,9 @@ class DeviceConfigurationSetting extends ISetting<DeviceImplementations> {
     super.setNewValue(t);
     currDeviceConfiguration = currValue.value;
   }
+
+  @override
+  String getCurrValueAsString() {
+    return currValue.toString();
+  }
 }

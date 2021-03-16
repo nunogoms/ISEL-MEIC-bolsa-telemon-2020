@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/general/extension_methods/string_extension.dart';
+import 'package:telemon_app/src/ui/view/views/settings/settings_dropdown_button.dart';
 import 'package:telemon_app/src/ui/viewmodels/settings_viewmodel.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -22,30 +23,10 @@ class _SettingsPageState extends State<SettingsPage> {
     //TODO passar isto p geral
     return Container(
         child: Column(children: <Widget>[
-      Row(
-        children: [
-          Text(l10n(context).frequency.toString().addTwoDots),
-          DropdownButton<String>(
-            value: settingsViewModel.frequencySetting.currValue.toString(),
-            icon: Icon(Icons.arrow_drop_down_circle_outlined),
-            //iconSize: 24,
-            elevation: 16,
-            style: TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
-            ),
-            onChanged: (String? s){settingsViewModel.frequencySetting.setNewValue(s!); settingsViewModel.updateValues();},
-            items: settingsViewModel.frequencySetting.getPossibleValues()
-                .map<DropdownMenuItem<String>>((Frequency value) {
-              return DropdownMenuItem<String>(
-                value: value.toString(),
-                child: Text(value.toString()),
-              );
-            }).toList(),
-          )
-        ],
-      ),
+      SettingsDropdownButton(l10n(context).frequency.toString().addTwoDots,
+          settingsViewModel.frequencySetting),
+      SettingsDropdownButton(l10n(context).device.toString().addTwoDots,
+          settingsViewModel.deviceSetting),
       Row(
         children: [
           Text(l10n(context)

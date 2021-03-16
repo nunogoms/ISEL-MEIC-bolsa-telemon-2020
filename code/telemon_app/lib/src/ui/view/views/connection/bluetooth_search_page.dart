@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:telemon_app/src/data/services/bluetooth_service/bluetooth_dev.dart';
 import 'package:telemon_app/src/general/consts/globals.dart';
 import 'package:telemon_app/src/ui/view/widgets/appbars/back_title_appbar.dart';
-import 'package:telemon_app/src/ui/view/widgets/bluetooth_device_entry.dart';
+import 'file:///C:/Users/nunom/Documents/ISEL/Bolsa-Telemonitorization/work/CODE-ISEL-MEIC-bolsa-telemon-2020/code/telemon_app/lib/src/ui/view/views/connection/bluetooth_device_entry.dart';
 import 'package:telemon_app/src/ui/viewmodels/device_viewmodel.dart';
 
 class BluetoothSearch extends StatefulWidget {
