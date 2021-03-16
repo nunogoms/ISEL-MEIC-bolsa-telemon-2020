@@ -5,7 +5,7 @@ import 'package:telemon_app/src/data/model/settings/implementations/device_confi
 import 'package:telemon_app/src/data/model/settings/implementations/frequency_setting.dart';
 
 class ExamSettings {
-  int secondsToShow;
+  int secondsToShow; //TODO change to scypi seconds :))
   int duration;
   Frequency frequency;
 
@@ -15,7 +15,7 @@ class ExamSettings {
 class SettingsViewModel extends ChangeNotifier {
   late final ExamSettings examSettings; //TODO remove this as a part, and use only to export
   final FrequencySetting frequencySetting = FrequencySetting(Frequency.HZ1000);
-  final DeviceConfigurationSetting deviceSetting = DeviceConfigurationSetting(DeviceImplementations.ISEL_BITALINO);
+  final DeviceConfigurationSetting deviceSetting = DeviceConfigurationSetting(DeviceImplementations.BITALINO_WEARABLE);
 
   SettingsViewModel() {
     examSettings = ExamSettings();

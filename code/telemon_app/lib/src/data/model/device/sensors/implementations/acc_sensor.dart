@@ -1,3 +1,4 @@
+import 'package:bitalino/bitalino.dart';
 import 'package:telemon_app/src/data/model/device/sensors/utils/filters.dart';
 
 import '../isensor.dart';
@@ -5,12 +6,13 @@ import '../isensor.dart';
 class AccSensor extends ISensor {
   AccSensor()
       : super(
-            TechnicalInfo(vcc: 3.3, measurementUnit: "g"),
-            SensorDataInfo(maxValue: 3, minValue: -3, sensorGain: 1100),
-            LowPassFilter(
-                order: 1,
-                sampleFrequency: 1000, //TODO change this to be dynamic
-                highCutOff: 50));
+            preferredFrequency: Frequency.HZ100,
+            technicalInfo: TechnicalInfo(vcc: 3.3, measurementUnit: "g"),
+            sensorDataInfo:
+                SensorDataInfo(maxValue: 3, minValue: -3, sensorGain: 1100)) {
+    this.filterInfo = LowPassFilter(
+        order: 1, sampleFrequency: this.preferredFrequency, highCutOff: 2.8);
+  }
 
   double cMin = 0;
   double cMax = 0;

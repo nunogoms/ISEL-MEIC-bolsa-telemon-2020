@@ -1,4 +1,5 @@
 import 'package:telemon_app/src/data/model/device/sensors/implementations/eda_sensor.dart';
+import 'package:telemon_app/src/data/model/device/sensors/implementations/lux_sensor.dart';
 import 'package:telemon_app/src/data/model/device/sensors/sensor_name.dart';
 
 import '../device_channels.dart';
@@ -14,6 +15,10 @@ class BitalinoWearable extends IDevice {
     SensorModule(
         sensor: EdaSensor(),
         deviceChannel: DeviceChannel.A1,
-        name: SensorName.EDA)
+        name: SensorName.EDA),
+    SensorModule(
+        sensor: LuxSensor(),
+        deviceChannel: DeviceChannel.A6, //TODO ask because it should be channel A5
+        name: SensorName.LUX)
   ];
 }

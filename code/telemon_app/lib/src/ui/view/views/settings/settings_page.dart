@@ -23,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
     //TODO passar isto p geral
     return Container(
         child: Column(children: <Widget>[
-      SettingsDropdownButton(l10n(context).frequency.toString().addTwoDots,
+      SettingsDropdownButton(l10n(context).frequencyInt.toString().addTwoDots,
           settingsViewModel.frequencySetting),
       SettingsDropdownButton(l10n(context).device.toString().addTwoDots,
           settingsViewModel.deviceSetting),

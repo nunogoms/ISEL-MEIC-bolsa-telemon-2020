@@ -12,7 +12,16 @@ enum SensorName {
   EEG,
 
   // Acceleration
-  ACC
+  ACC,
+
+  // Light Intensity
+  LUX,
+
+  // Respiration
+  RPZ,
+
+  //Temperature
+  TMP,
 }
 
 extension fullName on SensorName {
@@ -28,6 +37,12 @@ extension fullName on SensorName {
         return "Electroencephalogram";
       case SensorName.ACC:
         return "Acceleration";
+      case SensorName.LUX:
+        return "Light Intensity";
+      case SensorName.RPZ:
+        return "Respiration";
+      case SensorName.TMP:
+        return "Temperature";
     }
   }
 }
