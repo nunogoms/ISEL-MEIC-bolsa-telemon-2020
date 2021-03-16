@@ -32,8 +32,6 @@ abstract class ISensor {
       var realFilterInfo = filterInfo!;
       return lfilter(
           realFilterInfo.filterCoefficients,
-          /// I dont really know why it must be 1.0, but its what all the examples
-          /// shown, and it works well
           Array([1.0]),
           Array([
             ...oldValues
